@@ -1,4 +1,5 @@
 ﻿using System;
+using Sudoku.Frontend.Controllers;
 
 namespace Sudoku.Frontend
 {
@@ -6,7 +7,13 @@ namespace Sudoku.Frontend
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var sudoku = new SudokuController();
+
+            ConsoleKey key;
+            while ((key = Console.ReadKey(true).Key) != ConsoleKey.Escape)
+            {
+                sudoku.Update(key);
+            }
         }
     }
 }

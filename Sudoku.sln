@@ -2,10 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.Frontend", "Sudoku.Frontend\Sudoku.Frontend.csproj", "{CFAEA548-7EEB-4377-B5B9-8661A6A8568B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.DependencyInjection", "Sudoku.DependencyInjection\Sudoku.DependencyInjection.csproj", "{9F1132B6-6A0A-4403-BE59-9D4E4DF4F0CD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.DependencyInjection.Test", "Sudoku.DependencyInjection.Test\Sudoku.DependencyInjection.Test.csproj", "{B00EEB8B-2A09-45AE-A278-91A27B0D6B22}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,13 +12,5 @@ Global
 		{CFAEA548-7EEB-4377-B5B9-8661A6A8568B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFAEA548-7EEB-4377-B5B9-8661A6A8568B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFAEA548-7EEB-4377-B5B9-8661A6A8568B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F1132B6-6A0A-4403-BE59-9D4E4DF4F0CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F1132B6-6A0A-4403-BE59-9D4E4DF4F0CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F1132B6-6A0A-4403-BE59-9D4E4DF4F0CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F1132B6-6A0A-4403-BE59-9D4E4DF4F0CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B00EEB8B-2A09-45AE-A278-91A27B0D6B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B00EEB8B-2A09-45AE-A278-91A27B0D6B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B00EEB8B-2A09-45AE-A278-91A27B0D6B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B00EEB8B-2A09-45AE-A278-91A27B0D6B22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
