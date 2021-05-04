@@ -3,7 +3,7 @@
 namespace Sudoku.DependencyInjection.Exceptions
 {
     [Serializable]
-    public class AmbiguousTypeException : System.Exception
+    public class AmbiguousTypeException : Exception
     {
         public AmbiguousTypeException(string message) : base(message) { }
     }
