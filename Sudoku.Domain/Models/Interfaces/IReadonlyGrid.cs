@@ -4,6 +4,6 @@ namespace Sudoku.Domain.Models.Interfaces
 {
     public interface IReadonlyGrid
     {
-        IEnumerable<ICell[]> GetCells();
+        IEnumerable<ICell> GetCells();
     }
 }

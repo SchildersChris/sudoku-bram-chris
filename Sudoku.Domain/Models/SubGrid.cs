@@ -24,7 +24,7 @@ namespace Sudoku.Domain.Models
             return _children.Any(c => c.Place(point, number, temporary));
         }
 
-        public IEnumerable<ICell[]> GetCells()
+        public IEnumerable<ICell> GetCells()
         {
             return _children.SelectMany(c => c.GetCells());
         }

@@ -7,21 +7,23 @@ namespace Sudoku.Domain.Models
     public class Cell : IGrid, ICell
     {
         public Point Point { get; }
+        public int GridNumber { get; }
         public int? Number { get; private set; }
         public bool Temporary { get; private set; }
         public bool Faulty { get; private set; }
 
-        public Cell(Point point, int? number = null)
+        public Cell(Point point, int gridNumber, int? number = null)
         {
             Point = point;
+            GridNumber = gridNumber;
             Number = number;
             Temporary = false;
             Faulty = false;
         }
 
-        public IEnumerable<ICell[]> GetCells()
+        public IEnumerable<ICell> GetCells()
         {
-            yield return new ICell[] { this };
+            yield return this;
         }
 
         public bool Check(Point point, int number)
