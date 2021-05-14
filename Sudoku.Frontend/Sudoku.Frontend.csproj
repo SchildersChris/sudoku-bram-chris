@@ -5,4 +5,14 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Sudoku.Data\Sudoku.Data.csproj" />
+      <ProjectReference Include="..\Sudoku.DependencyInjection\Sudoku.DependencyInjection.csproj" />
+      <ProjectReference Include="..\Sudoku.Domain\Sudoku.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Pastel" Version="2.1.0" />
+    </ItemGroup>
+
 </Project>

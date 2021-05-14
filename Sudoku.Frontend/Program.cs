@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Sudoku.Frontend.Controllers;
 
 namespace Sudoku.Frontend
 {
@@ -6,7 +6,7 @@ namespace Sudoku.Frontend
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            App.Instance.Run(new StartController());
         }
     }
 }
