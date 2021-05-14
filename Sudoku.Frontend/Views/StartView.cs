@@ -21,7 +21,7 @@ namespace Sudoku.Frontend.Views
         {
             if (_model.SudokuPath == null)
             {
-                Console.WriteLine("Please enter a sudoku file path:\n");
+                Console.Write("Please enter a sudoku file path:");
                 _model.SudokuPath = Console.ReadLine();
             }
             
