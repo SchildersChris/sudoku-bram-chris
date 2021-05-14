@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Sudoku.Domain.Enums;
+using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Frontend.Models
 {
-    /// <summary>
-    /// This class represents a model which contains all view related information.
-    /// With the purpose of being able to store view state.
-    /// </summary>
     public class SudokuModel
     {
-        public IEnumerable<CellModel> Cells { get; set; }
+        private readonly IEnumerable<CellModel> _cells;
         
-        public SudokuModel()
+        public SudokuModel(IEnumerable<IReadonlyGrid> grids, EditorState editorState)
         {
-            Cells = Array.Empty<CellModel>();
+            
+        }
+
+        void Move()
+        {
+            
         }
     }
 }

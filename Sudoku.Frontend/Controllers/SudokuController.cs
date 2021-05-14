@@ -1,46 +1,31 @@
 ﻿using System;
-using System.Drawing;
+using Sudoku.Domain;
 using Sudoku.Frontend.Models;
 using Sudoku.Frontend.Views;
 
 namespace Sudoku.Frontend.Controllers
 {
-    public class SudokuController
+    public class SudokuController : IController
     {
         private readonly SudokuView _view;
         private readonly SudokuModel _model;
+        private readonly IGame _game;
         
-        public SudokuController()
+        public SudokuController(IGame game,  bool simpleDisplay)
         {
-            _model = new SudokuModel();
+            _model = new SudokuModel(game.Grids, game.State);
             _view = new SudokuView(_model);
-
-            // Todo: Remove
-            _model.Cells = new[]
-            {
-                new CellModel(new Point(0, 0), null, Color.Bisque),
-                new CellModel(new Point(1, 0), null, Color.Bisque),
-                new CellModel(new Point(2, 0), null, Color.Bisque),
-                new CellModel(new Point(3, 0), null, Color.Bisque),
-                new CellModel(new Point(0, 1), null, Color.Bisque),
-                new CellModel(new Point(1, 1), null, Color.Bisque),
-                new CellModel(new Point(2, 1), null, Color.Bisque),
-                new CellModel(new Point(3, 1), null, Color.Bisque),
-                new CellModel(new Point(0, 2), null, Color.Bisque),
-                new CellModel(new Point(1, 2), null, Color.Bisque),
-                new CellModel(new Point(2, 2), null, Color.Bisque),
-                new CellModel(new Point(3, 2), null, Color.Bisque),
-                new CellModel(new Point(0, 3), null, Color.Purple),
-                new CellModel(new Point(1, 3), null, Color.Purple),
-                new CellModel(new Point(2, 3), null, Color.Purple),
-                new CellModel(new Point(3, 3), null, Color.Purple),
-            };
+            _game = game;
         }
 
         public void Update(ConsoleKey key)
         {
+            switch (key)
+            {
+                // Todo: Do action
+            }
             
-            
+            // Todo: Update model
             
             _view.Update();
         }

@@ -6,7 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Sudoku.Data\Sudoku.Data.csproj" />
       <ProjectReference Include="..\Sudoku.DependencyInjection\Sudoku.DependencyInjection.csproj" />
+      <ProjectReference Include="..\Sudoku.Domain\Sudoku.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using Pastel;
+using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Frontend.Models
 {
@@ -7,22 +8,32 @@ namespace Sudoku.Frontend.Models
     {
         private readonly Color? _foreground;
         private readonly Color? _background;
-        private readonly uint? _number;
 
         public Point Point { get; }
+        public int GridNumber { get; }
+        public int? Number { get; }
 
-        public CellModel(Point point, uint? number = null, Color? foreground = null, Color? background = null)
+        public CellModel(ICell cell, int gridNumber)
         {
-            Point = point;
-            
-            _foreground = foreground;
-            _background = background;
-            _number = number;
+
+            Point = cell.Point;
+            GridNumber = gridNumber;
+            Number = cell.Number;
+
+            if (cell.Faulty)
+            {
+                _foreground = Color.Red;
+            }
+
+            if (cell.Temporary)
+            {
+                _background = Color.Yellow;
+            }
         }
         
         public override string ToString()
         {
-            var val = _number.HasValue ? _number.Value.ToString() : " ";
+            var val = Number.HasValue ? Number.Value.ToString() : " ";
             if (_foreground.HasValue)
             {
                 val = val.Pastel(_foreground.Value);
