@@ -26,9 +26,9 @@ namespace Sudoku.Data
             return builder;
         }
         
-        public void AddCell(Point point, int gridNumber, int? number)
+        public void AddCell(Point point, int? number)
         {
-            _grids.Add(new Cell(point, gridNumber, number));
+            _grids.Add(new Cell(point, number));
         }
         
         public IGrid Build()

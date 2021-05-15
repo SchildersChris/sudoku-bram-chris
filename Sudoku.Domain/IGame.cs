@@ -8,7 +8,7 @@ namespace Sudoku.Domain
     public interface IGame
     {
         EditorState State { get; set; }
-        IEnumerable<IReadonlyGrid> Grids { get; }
+        ICell[,] Cells { get; }
         void Solve();
         bool Place(Point point, int number);
     }

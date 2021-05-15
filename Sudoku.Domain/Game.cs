@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using Sudoku.Domain.Enums;
 using Sudoku.Domain.Models;
@@ -13,7 +12,7 @@ namespace Sudoku.Domain
     {
         private readonly ISolver _solver;
         public SudokuModel Sudoku { get; }
-        public IEnumerable<IReadonlyGrid> Grids => Sudoku.Grids;
+        public ICell[,] Cells => Sudoku.Cells;
 
         private IEditorState _currentState;
         private EditorState _state;

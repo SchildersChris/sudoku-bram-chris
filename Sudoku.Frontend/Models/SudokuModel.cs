@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using Sudoku.Domain.Enums;
+﻿using Sudoku.Domain.Enums;
 using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Frontend.Models
 {
     public class SudokuModel
     {
-        private readonly IEnumerable<CellModel> _cells;
+        public CellModel[,] Cells { get; }
         
-        public SudokuModel(IEnumerable<IReadonlyGrid> grids, EditorState editorState)
+        public SudokuModel(ICell[,] cells, EditorState editorState)
         {
             
         }

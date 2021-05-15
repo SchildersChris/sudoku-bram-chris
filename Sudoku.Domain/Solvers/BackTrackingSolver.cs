@@ -6,15 +6,10 @@ namespace Sudoku.Domain.Solvers
     {
         public void Visit(SudokuModel sudoku)
         {
-            var grids = sudoku.Grids;
-
-            foreach (var grid in grids)
+            var cells = sudoku.Cells;
+            foreach (var cell in cells)
             {
-                var cells = grid.GetCells();
-                foreach (var cell in cells)
-                {
-                    // Todo: Add backtracking ding
-                }
+                // Todo: Add backtracking ding
             }
         }
     }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Drawing;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.Solvers;
 
@@ -8,12 +6,14 @@ namespace Sudoku.Domain.Models
 {
     public class SudokuModel
     {
-        private readonly IEnumerable<IGrid> _grids;
-        public IEnumerable<IReadonlyGrid> Grids => _grids;
-
-        public SudokuModel(IEnumerable<IGrid> grids)
+        private readonly IGrid _grid;
+        public ICell[,] Cells { get; }
+        public SudokuModel(int width, int height, IGrid grid)
         {
-            _grids = grids;
+            var cells = new ICell[width, height];
+            _grid = grid;
+            _grid.Layout(cells);
+            Cells = cells;
         }
 
         public void Accept(ISolver solver)
@@ -23,7 +23,7 @@ namespace Sudoku.Domain.Models
         
         public bool Place(Point point, int number, bool temporary)
         {
-            return _grids.Any(grid => grid.Place(point, number, temporary));
+            return _grid.Place(point, number, temporary);
         }
     }
 }

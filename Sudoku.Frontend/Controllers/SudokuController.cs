@@ -13,7 +13,7 @@ namespace Sudoku.Frontend.Controllers
         
         public SudokuController(IGame game,  bool simpleDisplay)
         {
-            _model = new SudokuModel(game.Grids, game.State);
+            _model = new SudokuModel(game.Cells, game.State);
             _view = new SudokuView(_model);
             _game = game;
         }

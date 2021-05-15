@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using Pastel;
 using Sudoku.Domain.Models.Interfaces;
 
@@ -8,27 +9,22 @@ namespace Sudoku.Frontend.Models
     {
         private readonly Color? _foreground;
         private readonly Color? _background;
-
-        public Point Point { get; }
         public int GridNumber { get; }
         public int? Number { get; }
+        public int?[] Temporary { get; }
 
-        public CellModel(ICell cell, int gridNumber)
+        public CellModel(ICell cell)
         {
-
-            Point = cell.Point;
-            GridNumber = gridNumber;
             Number = cell.Number;
+            Temporary = cell.Temporary.Clone() as int?[];
 
-            if (cell.Faulty)
+            if (!cell.Faulty)
             {
-                _foreground = Color.Red;
+                return;
             }
-
-            if (cell.Temporary)
-            {
-                _background = Color.Yellow;
-            }
+            
+            _foreground = Color.White;
+            _background = Color.Red;
         }
         
         public override string ToString()
