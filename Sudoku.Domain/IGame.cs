@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using Sudoku.Domain.Enums;
 using Sudoku.Domain.Models.Interfaces;
 

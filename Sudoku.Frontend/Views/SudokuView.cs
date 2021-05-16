@@ -12,13 +12,28 @@ namespace Sudoku.Frontend.Views
         {
             Console.Clear();
             Console.OutputEncoding = Encoding.UTF8;
-            
+            Console.WriteLine("Playing!\n");
+
             _model = model;
         }
 
         public void Update()
         {
+            Console.SetCursorPosition(0, 2);
+            Console.CursorVisible = false;
             
+            var width = _model.Cells.GetLength(0);
+            var height = _model.Cells.GetLength(1);
+            
+            for (var y = 0; y < height; y++)
+            {
+                for (var x = 0; x < width; x++)
+                {
+                    var cell = _model.Cells[y, x];
+                    Console.Write(cell.ToString());
+                }
+                Console.Write('\n');
+            }
         }
     }
 }

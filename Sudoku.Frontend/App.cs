@@ -12,7 +12,6 @@ namespace Sudoku.Frontend
         public void Run(IController controller)
         {
             SetController(controller);
-            _controller.Update(ConsoleKey.NoName);
 
             ConsoleKey key;
             while ((key = Console.ReadKey(true).Key) != ConsoleKey.Escape)
@@ -24,6 +23,7 @@ namespace Sudoku.Frontend
         public void SetController(IController controller)
         {
             _controller = controller;
+            _controller.Update(ConsoleKey.NoName);
         }
     }
 }

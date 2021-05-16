@@ -8,12 +8,12 @@ namespace Sudoku.Domain.Models
     {
         private readonly IGrid _grid;
         public ICell[,] Cells { get; }
-        public SudokuModel(int width, int height, IGrid grid)
+        public SudokuModel(int length, IGrid grid)
         {
-            var cells = new ICell[width, height];
             _grid = grid;
-            _grid.Layout(cells);
-            Cells = cells;
+            Cells = new ICell[length, length];
+            
+            _grid.Layout(Cells);
         }
 
         public void Accept(ISolver solver)

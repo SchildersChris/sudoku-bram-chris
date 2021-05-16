@@ -26,7 +26,7 @@ namespace Sudoku.Domain
                 {
                     EditorState.DefinitiveNumbers => new DefiniteNumberState(this),
                     EditorState.AuxiliaryNumbers => new AuxiliaryNumberState(this),
-                    _ => throw new ArgumentOutOfRangeException(nameof(_state), _state, null)
+                    _ => throw new ArgumentOutOfRangeException(nameof(State), _state, "State is not valid.")
                 };
             }
         }

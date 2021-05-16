@@ -10,15 +10,15 @@ namespace Sudoku.Frontend.Views
 
         public StartView(StartModel model)
         {
-            Console.Clear();
             Console.OutputEncoding = Encoding.UTF8;
-            
             _model = model;
-            Console.WriteLine("Welcome to Sudoku.\n");
         }
         
         public void Update()
         {
+            Console.Clear();
+            Console.WriteLine("Welcome to Sudoku.\n");
+            
             if (_model.SudokuPath == null)
             {
                 Console.Write("Please enter a sudoku file path: ");

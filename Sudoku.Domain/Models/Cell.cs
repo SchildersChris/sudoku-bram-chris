@@ -5,17 +5,18 @@ namespace Sudoku.Domain.Models
 {
     public class Cell : IGrid, ICell
     {
-        public Point Point { get; }
-        public int? Number { get; private set; }
-        public int?[] Temporary { get; }
+        private readonly Point _point;
+        public int GridNumber { get; }
+        public int? Definite { get; private set; }
+        public int?[] Auxiliary { get; }
         public bool Faulty { get; private set; }
 
-        public Cell(Point point, int? number = null)
+        public Cell(Point point, int gridNumber, int totalAuxiliary, int? number = null)
         {
-            Temporary = new int?[9];
-            
-            Point = point;
-            Number = number;
+            _point = point;
+            GridNumber = gridNumber;
+            Definite = number;
+            Auxiliary = new int?[totalAuxiliary];
             Faulty = false;
         }
 
@@ -26,34 +27,35 @@ namespace Sudoku.Domain.Models
 
         public bool Check(int number)
         {
-            return Number == number;
+            return Definite == number;
         }
 
         public bool Check(Point point, int number)
         {
-            return Point.X == point.X || Point.Y == point.Y && Check(number);
+            return _point.X == point.X || _point.Y == point.Y && Check(number);
         }
 
         public bool Place(Point point, int number, bool temporary)
         {
             Faulty = !Check(point, number);
-            if (Point != point) 
+            if (_point != point) 
                 return Faulty;
             
             if (temporary)
             {
-                Temporary[number - 1] = Temporary[number - 1] == number ? null : number; 
+                Auxiliary[number - 1] = Auxiliary[number - 1] == number ? null : number; 
                 return true;
             }
-            Number = Number == number ? null : number;
+            
+            Definite = Definite == number ? null : number;
             return Faulty;
         }
 
         public void Layout(ICell[,] cells)
         {
-            if (Point.X < cells.GetLength(0) && Point.Y < cells.GetLength(1))
+            if (_point.X < cells.GetLength(1) && _point.Y < cells.GetLength(0))
             {
-                cells[Point.X, Point.Y] = this;
+                cells[_point.X, _point.Y] = this;
             }
         }
     }

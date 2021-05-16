@@ -16,6 +16,7 @@ namespace Sudoku.Frontend.Controllers
             _model = new StartModel();
             _view = new StartView(_model);
             _gameReader = new GameReader();
+            
         }
         
         public void Update(ConsoleKey key)
@@ -32,11 +33,15 @@ namespace Sudoku.Frontend.Controllers
                     if (_model.SudokuPath != null)
                     {
                         App.Instance.SetController(new SudokuController(_gameReader.Read(_model.SudokuPath), _model.SimpleDisplay));
+                        return;
                     }
                     break;
             }
             
             _view.Update();
+            
+            // Todo: Delete
+            App.Instance.SetController(new SudokuController(_gameReader.Read("./Resources/puzzle.4x4"), _model.SimpleDisplay));
         }
     }
 }

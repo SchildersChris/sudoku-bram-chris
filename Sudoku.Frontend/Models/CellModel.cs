@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using Pastel;
 using Sudoku.Domain.Models.Interfaces;
 
@@ -10,13 +9,14 @@ namespace Sudoku.Frontend.Models
         private readonly Color? _foreground;
         private readonly Color? _background;
         public int GridNumber { get; }
-        public int? Number { get; }
-        public int?[] Temporary { get; }
+        public int? Definite { get; }
+        public int?[] Auxiliary { get; }
 
         public CellModel(ICell cell)
         {
-            Number = cell.Number;
-            Temporary = cell.Temporary.Clone() as int?[];
+            GridNumber = cell.GridNumber;
+            Definite = cell.Definite;
+            Auxiliary = cell.Auxiliary.Clone() as int?[];
 
             if (!cell.Faulty)
             {
@@ -29,7 +29,7 @@ namespace Sudoku.Frontend.Models
         
         public override string ToString()
         {
-            var val = Number.HasValue ? Number.Value.ToString() : " ";
+            var val = Definite.HasValue ? Definite.Value.ToString() : " ";
             if (_foreground.HasValue)
             {
                 val = val.Pastel(_foreground.Value);

@@ -36,10 +36,7 @@ namespace Sudoku.Data
                 throw new InvalidCastException($"Failed to create instance of {type.Name}");
             }
             
-            // Todo: Load file contents
-            // Todo: Check weather file exists 
-
-            return new Game(factory.Create());
+            return new Game(factory.Create(File.ReadLines(path)));
         }
     }
 }
