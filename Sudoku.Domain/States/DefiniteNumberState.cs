@@ -5,7 +5,7 @@ namespace Sudoku.Domain.States
     public class DefiniteNumberState : IEditorState
     {
         private readonly Game _game;
-        
+
         public DefiniteNumberState(Game game)
         {
             _game = game;

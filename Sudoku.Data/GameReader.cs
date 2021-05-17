@@ -10,13 +10,13 @@ namespace Sudoku.Data
     {
         private static readonly Dictionary<string, Type> Strategies = new()
         {
-            { ".jigsaw", typeof(JigsawFactory) },
-            { ".samurai", typeof(SamuraiFactory) },
-            { ".4x4", typeof(RegularFactory) },
-            { ".6x6", typeof(RegularFactory) },
-            { ".9x9", typeof(RegularFactory) },
+            {".jigsaw", typeof(JigsawFactory)},
+            {".samurai", typeof(SamuraiFactory)},
+            {".4x4", typeof(RegularFactory)},
+            {".6x6", typeof(RegularFactory)},
+            {".9x9", typeof(RegularFactory)},
         };
-        
+
         public IGame Read(string path)
         {
             var extension = Path.GetExtension(path);
@@ -24,7 +24,7 @@ namespace Sudoku.Data
             {
                 throw new ArgumentException($"The the following path: '{path}' is not valid");
             }
-            
+
             if (!Strategies.ContainsKey(extension))
             {
                 throw new ArgumentException($"There is no strategy registered for: '{extension}'");
@@ -35,7 +35,7 @@ namespace Sudoku.Data
             {
                 throw new InvalidCastException($"Failed to create instance of {type.Name}");
             }
-            
+
             return new Game(factory.Create(File.ReadLines(path)));
         }
     }

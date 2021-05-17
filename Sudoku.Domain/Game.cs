@@ -16,6 +16,7 @@ namespace Sudoku.Domain
 
         private IEditorState _currentState;
         private EditorState _state;
+
         public EditorState State
         {
             get => _state;
@@ -41,7 +42,7 @@ namespace Sudoku.Domain
         {
             Sudoku.Accept(_solver);
         }
-        
+
         public bool Place(Point point, int number)
         {
             return _currentState.Place(point, number);

@@ -7,7 +7,7 @@ namespace Sudoku.Frontend.Views
     public class SudokuView
     {
         private readonly SudokuModel _model;
-        
+
         public SudokuView(SudokuModel model)
         {
             Console.Clear();
@@ -21,10 +21,10 @@ namespace Sudoku.Frontend.Views
         {
             Console.SetCursorPosition(0, 2);
             Console.CursorVisible = false;
-            
+
             var width = _model.Cells.GetLength(0);
             var height = _model.Cells.GetLength(1);
-            
+
             for (var y = 0; y < height; y++)
             {
                 for (var x = 0; x < width; x++)
@@ -32,6 +32,7 @@ namespace Sudoku.Frontend.Views
                     var cell = _model.Cells[y, x];
                     Console.Write(cell.ToString());
                 }
+
                 Console.Write('\n');
             }
         }

@@ -11,12 +11,10 @@ namespace Sudoku.Frontend.Controllers
         private readonly SudokuView _view;
         private readonly SudokuModel _model;
         private readonly IGame _game;
-        
-        public SudokuController(IGame game,  bool simpleDisplay)
+
+        public SudokuController(IGame game, bool simpleDisplay)
         {
-            game.State = simpleDisplay ? 
-                EditorState.DefinitiveNumbers : 
-                EditorState.AuxiliaryNumbers;
+            game.State = simpleDisplay ? EditorState.DefinitiveNumbers : EditorState.AuxiliaryNumbers;
 
             _model = new SudokuModel(game.Cells)
             {
@@ -32,9 +30,9 @@ namespace Sudoku.Frontend.Controllers
             {
                 // Todo: Do action
             }
-            
+
             // Todo: Update model
-            
+
             _view.Update();
         }
     }

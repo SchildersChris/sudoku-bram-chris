@@ -7,7 +7,10 @@ namespace Sudoku.Frontend
     {
         private IController _controller;
         public static App Instance { get; } = new();
-        private App() { }
+
+        private App()
+        {
+        }
 
         public void Run(IController controller)
         {

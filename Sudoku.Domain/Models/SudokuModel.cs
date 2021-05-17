@@ -8,11 +8,12 @@ namespace Sudoku.Domain.Models
     {
         private readonly IGrid _grid;
         public ICell[,] Cells { get; }
+
         public SudokuModel(int length, IGrid grid)
         {
             _grid = grid;
             Cells = new ICell[length, length];
-            
+
             _grid.Layout(Cells);
         }
 
@@ -20,7 +21,7 @@ namespace Sudoku.Domain.Models
         {
             solver.Visit(this);
         }
-        
+
         public bool Place(Point point, int number, bool temporary)
         {
             return _grid.Place(point, number, temporary);

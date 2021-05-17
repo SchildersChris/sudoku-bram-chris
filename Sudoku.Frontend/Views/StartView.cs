@@ -13,20 +13,20 @@ namespace Sudoku.Frontend.Views
             Console.OutputEncoding = Encoding.UTF8;
             _model = model;
         }
-        
+
         public void Update()
         {
             Console.Clear();
             Console.WriteLine("Welcome to Sudoku.\n");
-            
+
             if (_model.SudokuPath == null)
             {
                 Console.Write("Please enter a sudoku file path: ");
                 _model.SudokuPath = Console.ReadLine();
             }
-            
+
             Console.WriteLine("\nSettings:");
-            Console.WriteLine($" - Display Mode: {(_model.SimpleDisplay ? "Simple" : "Advanced" )}");
+            Console.WriteLine($" - Display Mode: {(_model.SimpleDisplay ? "Simple" : "Advanced")}");
             Console.WriteLine($" - File Path: '{_model.SudokuPath ?? "None"}'");
 
             Console.WriteLine("\nOptions:");

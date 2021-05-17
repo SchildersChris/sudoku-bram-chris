@@ -8,7 +8,7 @@ namespace Sudoku.Domain.Models
     public class SubGrid : IGrid
     {
         private readonly IEnumerable<IGrid> _children;
-        
+
         public SubGrid(IEnumerable<IGrid> children)
         {
             _children = children;
@@ -23,7 +23,7 @@ namespace Sudoku.Domain.Models
         {
             return _children.Any(c => c.Check(number));
         }
-        
+
         public bool Check(Point point, int number)
         {
             return _children.Any(c => c.Check(point, number));
@@ -36,7 +36,7 @@ namespace Sudoku.Domain.Models
             {
                 return false;
             }
-            
+
             return placeResult;
         }
 

@@ -22,11 +22,11 @@ namespace Sudoku.Frontend.Models
             {
                 return;
             }
-            
+
             _foreground = Color.White;
             _background = Color.Red;
         }
-        
+
         public override string ToString()
         {
             var val = Definite.HasValue ? Definite.Value.ToString() : " ";
@@ -34,10 +34,12 @@ namespace Sudoku.Frontend.Models
             {
                 val = val.Pastel(_foreground.Value);
             }
+
             if (_background.HasValue)
             {
                 val = val.PastelBg(_background.Value);
             }
+
             return val;
         }
     }

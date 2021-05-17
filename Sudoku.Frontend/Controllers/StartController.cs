@@ -10,15 +10,14 @@ namespace Sudoku.Frontend.Controllers
         private readonly StartView _view;
         private readonly StartModel _model;
         private readonly IGameReader _gameReader;
-        
+
         public StartController()
         {
             _model = new StartModel();
             _view = new StartView(_model);
             _gameReader = new GameReader();
-            
         }
-        
+
         public void Update(ConsoleKey key)
         {
             switch (key)
@@ -32,16 +31,19 @@ namespace Sudoku.Frontend.Controllers
                 case ConsoleKey.S: // Start game (if file is set)
                     if (_model.SudokuPath != null)
                     {
-                        App.Instance.SetController(new SudokuController(_gameReader.Read(_model.SudokuPath), _model.SimpleDisplay));
+                        App.Instance.SetController(new SudokuController(_gameReader.Read(_model.SudokuPath),
+                            _model.SimpleDisplay));
                         return;
                     }
+
                     break;
             }
-            
+
             _view.Update();
-            
+
             // Todo: Delete
-            App.Instance.SetController(new SudokuController(_gameReader.Read("./Resources/puzzle.4x4"), _model.SimpleDisplay));
+            App.Instance.SetController(new SudokuController(_gameReader.Read("./Resources/puzzle.4x4"),
+                _model.SimpleDisplay));
         }
     }
 }
