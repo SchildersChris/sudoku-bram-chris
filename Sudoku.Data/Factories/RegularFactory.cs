@@ -49,7 +49,7 @@ namespace Sudoku.Data.Factories
                 }
             }
 
-            return new SudokuModel(length, _gridBuilder.Build());
+            return new SudokuModel(length, length, _gridBuilder.Build());
         }
     }
 }

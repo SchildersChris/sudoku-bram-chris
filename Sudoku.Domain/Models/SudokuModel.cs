@@ -9,10 +9,10 @@ namespace Sudoku.Domain.Models
         private readonly IGrid _grid;
         public ICell[,] Cells { get; }
 
-        public SudokuModel(int length, IGrid grid)
+        public SudokuModel(int width, int height, IGrid grid)
         {
             _grid = grid;
-            Cells = new ICell[length, length];
+            Cells = new ICell[width, height];
 
             _grid.Layout(Cells);
         }
