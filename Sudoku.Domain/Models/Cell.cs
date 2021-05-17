@@ -38,15 +38,15 @@ namespace Sudoku.Domain.Models
         public bool Place(Point point, int number, bool temporary)
         {
             Faulty = !Check(point, number);
-            if (_point != point) 
+            if (_point != point)
                 return Faulty;
-            
+
             if (temporary)
             {
-                Auxiliary[number - 1] = Auxiliary[number - 1] == number ? null : number; 
+                Auxiliary[number - 1] = Auxiliary[number - 1] == number ? null : number;
                 return true;
             }
-            
+
             Definite = Definite == number ? null : number;
             return Faulty;
         }
@@ -55,7 +55,7 @@ namespace Sudoku.Domain.Models
         {
             if (_point.X < cells.GetLength(1) && _point.Y < cells.GetLength(0))
             {
-                cells[_point.X, _point.Y] = this;
+                cells[_point.Y, _point.X] = this;
             }
         }
     }
