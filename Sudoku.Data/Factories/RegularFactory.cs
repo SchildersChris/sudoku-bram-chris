@@ -40,11 +40,13 @@ namespace Sudoku.Data.Factories
             {
                 for (var x = 0; x < length; x++)
                 {
+                    var number = int.Parse(line[y * length + x].ToString());
                     var yScale = y == 0 ? 0 : y / height;
                     var xScale = x == 0 ? 0 : x / width;
+
                     subGrids[yScale * width + xScale].AddCell(
                         new Point(x, y),
-                        int.Parse(line[y * length + x].ToString())
+                        number == 0 ? null : number
                     );
                 }
             }
