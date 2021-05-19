@@ -26,8 +26,30 @@ namespace Sudoku.Data.Factories
 
             if (gridLen % 1 != 0)
             {
-                // Todo: This case we do not have a square.
-                // Factorize the "length" for width and height 
+                var pairs = new List<(int, int)>();
+                var len = (int)Math.Ceiling(gridLen);
+                for (var i = 1; i <= len; i++)
+                {
+                    for (var j = len; j >= 0; j--)
+                    {
+                        if (j * i == length)
+                        {
+                            pairs.Add((j, i));
+                        }  
+                    }
+                }
+
+                var min = int.MaxValue;
+                foreach (var (j, i) in pairs)
+                {
+                    var sum = j + i;
+                    if (sum >= min) 
+                        continue;
+                    
+                    min = sum;
+                    width = j;
+                    height = i;
+                }
             }
 
             var subGrids = new List<GridBuilder>();
@@ -41,8 +63,8 @@ namespace Sudoku.Data.Factories
                 for (var x = 0; x < length; x++)
                 {
                     var number = int.Parse(line[y * length + x].ToString());
-                    var yScale = y == 0 ? 0 : y / height;
-                    var xScale = x == 0 ? 0 : x / width;
+                    var yScale = y == 0 ? 0 : y / width;
+                    var xScale = x == 0 ? 0 : x / height;
 
                     subGrids[yScale * width + xScale].AddCell(
                         new Point(x, y),
