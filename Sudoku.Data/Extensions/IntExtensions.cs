@@ -12,7 +12,9 @@ namespace Sudoku.Data.Extensions
             var b = (int) sqrt;
 
             if (sqrt % 1 == 0)
+            {
                 return (a, b);
+            }
             
             var pairs = new List<(int, int)>();
             var len = (int)Math.Ceiling(sqrt);
