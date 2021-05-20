@@ -6,4 +6,4 @@ namespace Sudoku.Data
     {
         IGame Read(string path);
     }
-}
+}   
