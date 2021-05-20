@@ -16,13 +16,19 @@ namespace Sudoku.Data.Factories
         
         public SudokuModel Create(IEnumerable<string> lines)
         {
-            var line = lines.First();
-            var length = (int) Math.Sqrt(line.Length);
-         
-            var subGrids = new List<GridBuilder>();
-            for (var i = 0; i < length; i++)
+            foreach (var line in lines)
             {
-                subGrids.Add(_gridBuilder.AddSubGrid());
+                var length = (int) Math.Sqrt(line.Length);
+                var gridLen = Math.Sqrt(length);
+                
+                var width = (int) gridLen;
+                var height = (int) gridLen;
+
+                var subGrids = new List<GridBuilder>();
+                for (var i = 0; i < length; i++)
+                {
+                    subGrids.Add(_gridBuilder.AddSubGrid());
+                }
             }
             
             throw new System.NotImplementedException();
