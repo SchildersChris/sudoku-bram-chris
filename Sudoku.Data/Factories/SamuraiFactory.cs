@@ -4,12 +4,13 @@ using System.Drawing;
 using System.Linq;
 using Sudoku.Data.Extensions;
 using Sudoku.Domain;
+using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Data.Factories
 {
     public class SamuraiFactory : BaseRegularFactory
     {
-        public override IGame Create(IEnumerable<string> lines)
+        public override (int, IGrid) Create(IEnumerable<string> lines)
         {
             var linesArr = lines as string[] ?? lines.ToArray();
             if (linesArr.Length != 5)
@@ -21,7 +22,7 @@ namespace Sudoku.Data.Factories
             AddSudoku(linesArr[3], 0, 12);
             AddSudoku(linesArr[4], 12, 12);
 
-            return new Game(21, Build());
+            return (21, Build());
         }
     }
 }

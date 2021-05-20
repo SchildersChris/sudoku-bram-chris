@@ -27,7 +27,7 @@ namespace Sudoku.Domain.Models
         
         public bool Place(Point point, int number, bool temporary)
         {
-            Faulty = !(_point.X == point.X || _point.Y == point.Y && Check(number));
+            Faulty = (_point.X == point.X || _point.Y == point.Y) && Check(number);
             if (_point != point)
                 return Faulty;
 
@@ -38,7 +38,7 @@ namespace Sudoku.Domain.Models
             }
 
             Definite = Definite == number ? 0 : number;
-            return Faulty;
+            return !Faulty;
         }
 
         public void Layout(ICell[,] cells)

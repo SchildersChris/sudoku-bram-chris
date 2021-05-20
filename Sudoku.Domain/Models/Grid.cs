@@ -15,12 +15,12 @@ namespace Sudoku.Domain.Models
         
         public virtual bool Check(int number)
         {
-            return _children.Any(c => Check(number));
+            return _children.Any(c => c.Check(number));
         }
         
         public virtual bool Place(Point point, int number, bool temporary)
         {
-            return _children.All(c => Place(point, number, temporary));
+            return _children.Any(c => c.Place(point, number, temporary));
         }
         
         public virtual void Layout(ICell[,] cells)

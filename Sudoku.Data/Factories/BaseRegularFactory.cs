@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Sudoku.Data.Extensions;
-using Sudoku.Domain;
 using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Data.Factories
@@ -16,30 +15,30 @@ namespace Sudoku.Data.Factories
             _gridBuilder = new GridBuilder();
         }
 
-        public abstract IGame Create(IEnumerable<string> lines);
-        
+        public abstract (int, IGrid) Create(IEnumerable<string> lines);
+
         protected void AddSudoku(string line, int xStart, int yStart)
         {
             var length = (int) Math.Sqrt(line.Length);
             var (width, height) = length.Factorize();
             
-            var sudoku = _gridBuilder.AddSudokuGrid(new Rectangle(0, 0, width, height));
+            var sudoku = _gridBuilder.AddSudokuGrid(new Rectangle(xStart, yStart, length, length));
             var subGrids = new List<GridBuilder>();
             for (var i = 0; i < length; i++)
             {
                 subGrids.Add(sudoku.AddSubGrid());
             }
 
-            for (var y = yStart; y < length + yStart; y++)
+            for (var y = 0; y < length; y++)
             {
-                for (var x = xStart; x < length + xStart; x++)
+                for (var x = 0; x < length; x++)
                 {
                     var number = int.Parse(line[y * length + x].ToString());
-                    var yScale = y == 0 ? 0 : (y - yStart) / width;
-                    var xScale = x == 0 ? 0 : (x - xStart) / height;
+                    var yScale = y == 0 ? 0 : y / width;
+                    var xScale = x == 0 ? 0 : x / height;
 
                     subGrids[yScale * width + xScale].AddCell(
-                        new Point(x, y),
+                        new Point(x + xStart, y + yStart),
                         number
                     );
                 }

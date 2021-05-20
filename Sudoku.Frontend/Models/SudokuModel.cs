@@ -18,7 +18,11 @@ namespace Sudoku.Frontend.Models
             {
                 for (var x = 0; x < width; x++)
                 {
-                    Cells[y, x] = new CellModel(cells[y, x]);
+                    var cell = cells[y, x];
+                    if (cell != null)
+                    {
+                        Cells[y, x] = new CellModel(cell);
+                    }
                 }
             }
 

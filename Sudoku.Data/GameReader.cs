@@ -22,12 +22,12 @@ namespace Sudoku.Data
             var extension = Path.GetExtension(path);
             if (extension == null)
             {
-                throw new ArgumentException($"The the following path: '{path}' is not valid");
+                throw new ArgumentException($"The the following path: '{path}' is not valid", nameof(path));
             }
 
             if (!Strategies.ContainsKey(extension))
             {
-                throw new ArgumentException($"There is no strategy registered for: '{extension}'");
+                throw new ArgumentException($"There is no strategy registered for: '{extension}'", nameof(extension));
             }
 
             var type = Strategies[extension];
@@ -36,7 +36,8 @@ namespace Sudoku.Data
                 throw new InvalidCastException($"Failed to create instance of {type.Name}");
             }
 
-            return factory.Create(File.ReadLines(path));
+            var (len, grid) = factory.Create(File.ReadLines(path));
+            return new Game(len, grid);
         }
     }
 }
