@@ -20,24 +20,14 @@ namespace Sudoku.Domain.Models
             Faulty = false;
         }
 
-        public int Count()
-        {
-            return 1;
-        }
-
         public bool Check(int number)
         {
             return Definite == number;
         }
-
-        public bool Check(Point point, int number)
-        {
-            return _point.X == point.X || _point.Y == point.Y && Check(number);
-        }
-
+        
         public bool Place(Point point, int number, bool temporary)
         {
-            Faulty = !Check(point, number);
+            Faulty = !(_point.X == point.X || _point.Y == point.Y && Check(number));
             if (_point != point)
                 return Faulty;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Sudoku.Domain.Models;
+using Sudoku.Domain;
 
 namespace Sudoku.Data.Factories
 {
@@ -15,16 +15,17 @@ namespace Sudoku.Data.Factories
             _gridBuilder = new GridBuilder();
         }
 
-        public SudokuModel Create(IEnumerable<string> lines)
+        public IGame Create(IEnumerable<string> lines)
         {
             var line = lines.First();
             var parts = line.Split("=").Skip(1).ToArray();
             var length = (int) Math.Sqrt(parts.Length);
 
+            var sudoku = _gridBuilder.AddSudokuGrid(new Rectangle(0, 0, length, length));
             var subGrids = new List<GridBuilder>();
             for (var i = 0; i < length; i++)
             {
-                subGrids.Add(_gridBuilder.AddSubGrid());
+                subGrids.Add(sudoku.AddSubGrid());
             }
 
             for (var i = 0; i < parts.Length; i++)
@@ -39,7 +40,7 @@ namespace Sudoku.Data.Factories
                 );
             }
 
-            return new SudokuModel(length, length, _gridBuilder.Build());
+            return new Game(length, _gridBuilder.Build());
         }
     }
 }

@@ -1,12 +1,10 @@
-﻿using Sudoku.Domain.Models;
-
-namespace Sudoku.Domain.Solvers
+﻿namespace Sudoku.Domain.Solvers
 {
     public class BackTrackingSolver : ISolver
     {
-        public void Visit(SudokuModel sudoku)
+        public void Visit(IGame game)
         {
-            var cells = sudoku.Cells;
+            var cells = game.Cells;
             foreach (var cell in cells)
             {
                 // Todo: Add backtracking ding

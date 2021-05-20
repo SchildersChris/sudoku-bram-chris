@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Sudoku.Domain;
 using Sudoku.Domain.Models;
 
 namespace Sudoku.Data.Factories
 {
     public interface ISudokuFactory
     {
-        SudokuModel Create(IEnumerable<string> lines);
+        IGame Create(IEnumerable<string> lines);
     }
 }

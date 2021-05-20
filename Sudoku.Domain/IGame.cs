@@ -8,7 +8,6 @@ namespace Sudoku.Domain
     {
         EditorState State { get; set; }
         ICell[,] Cells { get; }
-        void Solve();
         bool Place(Point point, int number);
     }
 }

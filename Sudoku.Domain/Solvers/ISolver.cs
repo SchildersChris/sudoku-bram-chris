@@ -1,9 +1,7 @@
-﻿using Sudoku.Domain.Models;
-
-namespace Sudoku.Domain.Solvers
+﻿namespace Sudoku.Domain.Solvers
 {
     public interface ISolver
     {
-        void Visit(SudokuModel sudoku);
+        void Visit(IGame game);
     }
 }

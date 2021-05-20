@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Sudoku.Domain.Models;
@@ -8,41 +9,61 @@ namespace Sudoku.Data
 {
     public class GridBuilder
     {
-        private readonly int _childIndex;
+        private readonly int _gridNumber;
+        private readonly Func<IEnumerable<IGrid>, IGrid> _builder;
+        private readonly List<Func<int, IGrid>> _leaves;
+
         private readonly List<GridBuilder> _builders;
-        private readonly List<(Point, int)> _leaves;
 
         public GridBuilder()
         {
-            _childIndex = 0;
+            _gridNumber = 0;
+            _builder = children => new Grid(children);
+            _leaves = new List<Func<int, IGrid>>();
+            
             _builders = new List<GridBuilder>();
-            _leaves = new List<(Point, int)>();
         }
-
-        private GridBuilder(int childIndex = 0)
+    
+        private GridBuilder(int gridNumber, Func<IEnumerable<IGrid>, IGrid> builder)
         {
-            _childIndex = childIndex;
+            _gridNumber = gridNumber;
+            _builder = builder;
+            _leaves = new List<Func<int, IGrid>>();
+            
             _builders = new List<GridBuilder>();
-            _leaves = new List<(Point, int)>();
         }
 
+        public GridBuilder AddSudokuGrid(Rectangle rect)
+        {
+            var builder = new GridBuilder(
+                _builders.Count + 1, 
+                children => new SudokuGrid(rect, children)
+            );
+            _builders.Add(builder);
+            return builder;
+        }
+        
         public GridBuilder AddSubGrid()
         {
-            var builder = new GridBuilder(_builders.Count + 1);
+            var builder = new GridBuilder(
+                _builders.Count + 1,
+                children => new SubGrid(children)
+            );
             _builders.Add(builder);
-
             return builder;
         }
 
         public void AddCell(Point point, int number)
         {
-            _leaves.Add((point, number));
+            _leaves.Add(gridNumber => new Cell(point, gridNumber, _leaves.Count, number));
         }
 
         public IGrid Build()
         {
-            return new SubGrid(_builders.Select(b => b.Build())
-                .Concat(_leaves.Select(leaf => new Cell(leaf.Item1, _childIndex, _leaves.Count, leaf.Item2))));
+            return _builder(
+                _builders.Select(b => b.Build())
+                .Concat(_leaves.Select(leaf => leaf(_gridNumber)))
+            );
         }
     }
 }

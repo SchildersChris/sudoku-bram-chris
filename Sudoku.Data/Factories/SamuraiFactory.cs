@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using Sudoku.Domain.Models;
+using Sudoku.Data.Extensions;
+using Sudoku.Domain;
 
 namespace Sudoku.Data.Factories
 {
-    public class SamuraiFactory : ISudokuFactory
+    public class SamuraiFactory : BaseRegularFactory
     {
         private readonly GridBuilder _gridBuilder;
 
@@ -14,24 +16,19 @@ namespace Sudoku.Data.Factories
             _gridBuilder = new GridBuilder();
         }
         
-        public SudokuModel Create(IEnumerable<string> lines)
+        public override IGame Create(IEnumerable<string> lines)
         {
-            foreach (var line in lines)
-            {
-                var length = (int) Math.Sqrt(line.Length);
-                var gridLen = Math.Sqrt(length);
-                
-                var width = (int) gridLen;
-                var height = (int) gridLen;
+            var linesArr = lines as string[] ?? lines.ToArray();
+            if (linesArr.Length != 5)
+                throw new ArgumentException("Invalid amount of lines for a SamuraiSudoku", nameof(lines));
 
-                var subGrids = new List<GridBuilder>();
-                for (var i = 0; i < length; i++)
-                {
-                    subGrids.Add(_gridBuilder.AddSubGrid());
-                }
-            }
-            
-            throw new System.NotImplementedException();
+            CreateSudoku(linesArr[0], 0, 0);
+            CreateSudoku(linesArr[1], 12, 0);
+            CreateSudoku(linesArr[2], 12, 12);
+            CreateSudoku(linesArr[3], 0, 12);
+            CreateSudoku(linesArr[4], 12, 12);
+
+            return new Game(21, _gridBuilder.Build());
         }
     }
 }

@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Drawing;
 using Sudoku.Domain.Enums;
-using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
-using Sudoku.Domain.Solvers;
 using Sudoku.Domain.States;
 
 namespace Sudoku.Domain
 {
     public class Game : IGame
     {
-        private readonly ISolver _solver;
-        public SudokuModel Sudoku { get; }
-        public ICell[,] Cells => Sudoku.Cells;
-
         private IEditorState _currentState;
         private EditorState _state;
-
+        
+        public IGrid Sudoku { get; }
+        public ICell[,] Cells { get; }
         public EditorState State
         {
             get => _state;
@@ -32,15 +28,12 @@ namespace Sudoku.Domain
             }
         }
 
-        public Game(SudokuModel sudoku)
+        public Game(int length, IGrid sudoku)
         {
             Sudoku = sudoku;
-            _solver = new BackTrackingSolver();
-        }
-
-        public void Solve()
-        {
-            Sudoku.Accept(_solver);
+            Cells = new ICell[length, length];
+            
+            Sudoku.Layout(Cells);
         }
 
         public bool Place(Point point, int number)

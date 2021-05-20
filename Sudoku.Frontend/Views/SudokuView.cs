@@ -22,8 +22,8 @@ namespace Sudoku.Frontend.Views
             Console.SetCursorPosition(0, 2);
             Console.CursorVisible = false;
 
-            var width = _model.Cells.GetLength(0);
-            var height = _model.Cells.GetLength(1);
+            var width = _model.Cells.GetLength(1);
+            var height = _model.Cells.GetLength(0);
 
             for (var y = 0; y < height; y++)
             {

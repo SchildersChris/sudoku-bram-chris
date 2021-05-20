@@ -36,7 +36,7 @@ namespace Sudoku.Data
                 throw new InvalidCastException($"Failed to create instance of {type.Name}");
             }
 
-            return new Game(factory.Create(File.ReadLines(path)));
+            return factory.Create(File.ReadLines(path));
         }
     }
 }
