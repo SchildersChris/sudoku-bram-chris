@@ -28,6 +28,6 @@ namespace Sudoku.Domain.Test
             var result = game.Place(new Point(x, y), number);
             Assert.True(result);
             // Assert.Equal(number, game.Cells[y, x].Definite);
-        }A
+        }
     }
 }
