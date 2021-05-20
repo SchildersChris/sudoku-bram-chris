@@ -25,9 +25,8 @@ namespace Sudoku.Domain.Test
             game.State = EditorState.DefinitiveNumbers;
         
             // Act & Assert
-            var result = game.Place(new Point(x, y), number);
-            Assert.True(result);
-            // Assert.Equal(number, game.Cells[y, x].Definite);
+            Assert.True(game.Place(new Point(x, y), number));
+            Assert.Equal(number, game.Cells[y, x].Definite);
         }
     }
 }

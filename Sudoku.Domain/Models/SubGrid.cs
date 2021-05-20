@@ -12,13 +12,12 @@ namespace Sudoku.Domain.Models
         
         public override bool Place(Point point, int number, bool temporary)
         {
-            var placeResult = base.Place(point, number, temporary);
             if (!temporary && Check(number))
             {
                 return false;
             }
-
-            return placeResult;
+            
+            return base.Place(point, number, temporary);
         }
     }
 }

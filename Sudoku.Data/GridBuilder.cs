@@ -60,10 +60,10 @@ namespace Sudoku.Data
 
         public IGrid Build()
         {
-            return _builder(
-                _builders.Select(b => b.Build())
-                .Concat(_leaves.Select(leaf => leaf(_gridNumber)))
-            );
+            var grids = new List<IGrid>(_builders.Select(b => b.Build()));
+            grids.AddRange(_leaves.Select(leaf => leaf(_gridNumber)));
+
+            return _builder(grids);
         }
     }
 }
