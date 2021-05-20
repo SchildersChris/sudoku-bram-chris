@@ -7,16 +7,16 @@ namespace Sudoku.Domain.Models
     {
         private readonly Point _point;
         public int GridNumber { get; }
-        public int? Definite { get; private set; }
-        public int?[] Auxiliary { get; }
+        public int Definite { get; private set; }
+        public int[] Auxiliary { get; }
         public bool Faulty { get; private set; }
 
-        public Cell(Point point, int gridNumber, int totalAuxiliary, int? number = null)
+        public Cell(Point point, int gridNumber, int totalAuxiliary, int number)
         {
             _point = point;
             GridNumber = gridNumber;
             Definite = number;
-            Auxiliary = new int?[totalAuxiliary];
+            Auxiliary = new int[totalAuxiliary];
             Faulty = false;
         }
 
@@ -43,11 +43,11 @@ namespace Sudoku.Domain.Models
 
             if (temporary)
             {
-                Auxiliary[number - 1] = Auxiliary[number - 1] == number ? null : number;
+                Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
                 return true;
             }
 
-            Definite = Definite == number ? null : number;
+            Definite = Definite == number ? 0 : number;
             return Faulty;
         }
 

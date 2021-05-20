@@ -10,20 +10,20 @@ namespace Sudoku.Data
     {
         private readonly int _childIndex;
         private readonly List<GridBuilder> _builders;
-        private readonly List<(Point, int?)> _leaves;
+        private readonly List<(Point, int)> _leaves;
 
         public GridBuilder()
         {
             _childIndex = 0;
             _builders = new List<GridBuilder>();
-            _leaves = new List<(Point, int?)>();
+            _leaves = new List<(Point, int)>();
         }
 
-        private GridBuilder(int width, int childIndex = 0)
+        private GridBuilder(int childIndex = 0)
         {
             _childIndex = childIndex;
             _builders = new List<GridBuilder>();
-            _leaves = new List<(Point, int?)>();
+            _leaves = new List<(Point, int)>();
         }
 
         public GridBuilder AddSubGrid()
@@ -34,7 +34,7 @@ namespace Sudoku.Data
             return builder;
         }
 
-        public void AddCell(Point point, int? number)
+        public void AddCell(Point point, int number)
         {
             _leaves.Add((point, number));
         }

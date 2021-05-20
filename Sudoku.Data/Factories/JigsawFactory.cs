@@ -35,7 +35,7 @@ namespace Sudoku.Data.Factories
                 var number = int.Parse(cell[0]);
                 subGrids[int.Parse(cell[0])].AddCell(
                     new Point(i % length, i / length),
-                    number == 0 ? null : number
+                    number
                 );
             }
 

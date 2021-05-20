@@ -68,7 +68,7 @@ namespace Sudoku.Data.Factories
 
                     subGrids[yScale * width + xScale].AddCell(
                         new Point(x, y),
-                        number == 0 ? null : number
+                        number
                     );
                 }
             }
