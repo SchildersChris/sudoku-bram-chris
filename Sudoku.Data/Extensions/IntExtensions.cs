@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Sudoku.Data.Extensions
 {
@@ -16,7 +15,6 @@ namespace Sudoku.Data.Extensions
                 return (a, b);
             }
             
-            var pairs = new List<(int, int)>();
             var len = (int)Math.Ceiling(sqrt);
             for (var i = 1; i <= len; i++)
             {
@@ -24,24 +22,12 @@ namespace Sudoku.Data.Extensions
                 {
                     if (j * i == origin)
                     {
-                        pairs.Add((j, i));
+                        return (j, i);
                     }  
                 }
             }
 
-            var min = int.MaxValue;
-            foreach (var (j, i) in pairs)
-            {
-                var sum = j + i;
-                if (sum >= min) 
-                    continue;
-                    
-                min = sum;
-                a = j;
-                b = i;
-            }
-            
-            return (a, b);
+            throw new ArgumentException("Unable to find factors", nameof(origin));
         }
     }
 }

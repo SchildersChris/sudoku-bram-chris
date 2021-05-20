@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Sudoku.Data.Extensions;
 using Sudoku.Domain;
+using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Data.Factories
 {
@@ -17,7 +18,7 @@ namespace Sudoku.Data.Factories
 
         public abstract IGame Create(IEnumerable<string> lines);
         
-        protected void CreateSudoku(string line, int xStart, int yStart)
+        protected void AddSudoku(string line, int xStart, int yStart)
         {
             var length = (int) Math.Sqrt(line.Length);
             var (width, height) = length.Factorize();
@@ -43,6 +44,11 @@ namespace Sudoku.Data.Factories
                     );
                 }
             }
+        }
+
+        protected IGrid Build()
+        {
+            return _gridBuilder.Build();
         }
     }
 }

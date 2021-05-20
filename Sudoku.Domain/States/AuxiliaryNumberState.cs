@@ -13,7 +13,7 @@ namespace Sudoku.Domain.States
 
         public bool Place(Point point, int number)
         {
-            return _game.Sudoku.Place(point, number, true);
+            return _game.Grid.Place(point, number, true);
         }
     }
 }

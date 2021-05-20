@@ -11,7 +11,7 @@ namespace Sudoku.Domain
         private IEditorState _currentState;
         private EditorState _state;
         
-        public IGrid Sudoku { get; }
+        public IGrid Grid { get; }
         public ICell[,] Cells { get; }
         public EditorState State
         {
@@ -28,12 +28,12 @@ namespace Sudoku.Domain
             }
         }
 
-        public Game(int length, IGrid sudoku)
+        public Game(int length, IGrid grid)
         {
-            Sudoku = sudoku;
+            Grid = grid;
             Cells = new ICell[length, length];
             
-            Sudoku.Layout(Cells);
+            Grid.Layout(Cells);
         }
 
         public bool Place(Point point, int number)
