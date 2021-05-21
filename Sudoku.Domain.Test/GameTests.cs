@@ -84,7 +84,7 @@ namespace Sudoku.Domain.Test
         }
 
         [Fact]
-        public void Should_Not_Place_Double_On_Puzzle()
+        public void Should_Not_Place_Double_On_SubGrid()
         {
             // Arrange
             var game = new GameReader().Read("./Resources/empty.9x9");
@@ -99,6 +99,24 @@ namespace Sudoku.Domain.Test
             Assert.Equal(6, game.Cells[4, 5].Definite);
             Assert.Equal(6, game.Cells[4, 4].Definite);
         }
+        
+        [Fact]
+        public void Should_Not_Place_Double_On_Line()
+        {
+            // Arrange
+            var game = new GameReader().Read("./Resources/empty.9x9");
+
+            // Act
+            var place1 = game.Place(new Point(1, 4), 6);
+            var place2 = game.Place(new Point(7, 4), 6);
+            
+            // Assert
+            Assert.True(place1);
+            Assert.False(place2);
+            Assert.Equal(6, game.Cells[4, 1].Definite);
+            Assert.Equal(6, game.Cells[4, 7].Definite);
+        }
+
         
         [Theory]
         [InlineData(1, 3, 1, "./Resources/empty.samurai")]

@@ -21,7 +21,15 @@ namespace Sudoku.Domain.Composite
 
         public virtual bool Place(Point point, int number, bool temporary)
         {
-            return _children.All(c => c.Place(point, number, temporary));
+            var place = true;
+            foreach (var c in _children)
+            {
+                if (!c.Place(point, number, temporary))
+                {
+                    place = false;
+                }
+            }
+            return place;
         }
         
         public virtual void Layout(ICell[,] cells)
