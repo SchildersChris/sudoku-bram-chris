@@ -8,6 +8,7 @@ namespace Sudoku.Domain.Composite
     public class GridComposite : IGridComponent
     {
         private readonly IEnumerable<IGridComponent> _children;
+        
         public GridComposite(IEnumerable<IGridComponent> children)
         {
             _children = children;

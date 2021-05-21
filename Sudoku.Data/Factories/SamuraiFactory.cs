@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using Sudoku.Data.Extensions;
-using Sudoku.Domain;
 using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Data.Factories
@@ -18,7 +15,7 @@ namespace Sudoku.Data.Factories
 
             AddSudoku(linesArr[0], 0, 0);
             AddSudoku(linesArr[1], 12, 0);
-            AddSudoku(linesArr[2], 12, 12);
+            AddSudoku(linesArr[2], 6, 6);
             AddSudoku(linesArr[3], 0, 12);
             AddSudoku(linesArr[4], 12, 12);
 

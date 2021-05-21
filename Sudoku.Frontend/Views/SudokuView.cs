@@ -30,7 +30,7 @@ namespace Sudoku.Frontend.Views
                 for (var x = 0; x < width; x++)
                 {
                     var cell = _model.Cells[y, x];
-                    Console.Write(cell.ToString());
+                    Console.Write(cell?.ToString() ?? "|");
                 }
 
                 Console.Write('\n');

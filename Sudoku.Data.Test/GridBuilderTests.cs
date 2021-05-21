@@ -32,7 +32,7 @@ namespace Sudoku.Data.Test
             var sudokuGrid = gridBuilder.AddSudokuGrid(new Rectangle(0, 0, width, height));
             for (var y = 0; y < height; y++)
             {
-                var subGrid = sudokuGrid.AddSubGrid();
+                var subGrid = sudokuGrid.AddSubGrid(y);
                 for (var x = 0; x < width; x++)
                 {
                     subGrid.AddCell(new Point(x, y), y * width + x);

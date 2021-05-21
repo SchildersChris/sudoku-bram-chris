@@ -43,10 +43,10 @@ namespace Sudoku.Data
             return builder;
         }
         
-        public GridBuilder AddSubGrid()
+        public GridBuilder AddSubGrid(int gridNumber)
         {
             var builder = new GridBuilder(
-                _builders.Count + 1,
+                gridNumber,
                 children => new SubGridComposite(children)
             );
             _builders.Add(builder);

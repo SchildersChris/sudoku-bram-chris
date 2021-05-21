@@ -40,7 +40,7 @@ namespace Sudoku.Frontend.Controllers
                     _model.State = _game.State;
                     break;
                 }
-                // Todo: Do action
+                // Todo: Do actions 
             }
 
             // Todo: Update model

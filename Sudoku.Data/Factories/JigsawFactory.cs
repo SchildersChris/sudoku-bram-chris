@@ -25,7 +25,7 @@ namespace Sudoku.Data.Factories
             var subGrids = new List<GridBuilder>();
             for (var i = 0; i < length; i++)
             {
-                subGrids.Add(sudoku.AddSubGrid());
+                subGrids.Add(sudoku.AddSubGrid(i));
             }
 
             for (var i = 0; i < parts.Length; i++)
