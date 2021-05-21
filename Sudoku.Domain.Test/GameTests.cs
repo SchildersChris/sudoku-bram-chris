@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using Sudoku.Data;
 using Sudoku.Domain.Enums;
 using Xunit;
@@ -7,6 +8,20 @@ namespace Sudoku.Domain.Test
 {
     public class GameTests
     {
+        [Fact]
+        public void Should_Throw_ArgumentException_For_Point()
+        {
+            // Arrange 
+            var game = new GameReader().Read("./Resources/empty.9x9");
+            
+            // Act & Assert
+            Assert.Throws<ArgumentException>("point", () =>
+            {
+                game.Place(new Point(10, 10), 5);
+            });
+        }
+
+        
         [Fact]
         public void Should_Be_Definite_EditorState()
         {
@@ -61,10 +76,28 @@ namespace Sudoku.Domain.Test
             var game = new GameReader().Read(path);
 
             // Act
-            game.Place(new Point(x, y), number);
+            var place = game.Place(new Point(x, y), number);
             
             // Assert
+            Assert.True(place);
             Assert.Equal(number, game.Cells[y, x].Definite);
+        }
+
+        [Fact]
+        public void Should_Not_Place_Double_On_Puzzle()
+        {
+            // Arrange
+            var game = new GameReader().Read("./Resources/empty.9x9");
+
+            // Act
+            var place1 = game.Place(new Point(5, 4), 6);
+            var place2 = game.Place(new Point(4, 4), 6);
+            
+            // Assert
+            Assert.True(place1);
+            Assert.False(place2);
+            Assert.Equal(6, game.Cells[4, 5].Definite);
+            Assert.Equal(6, game.Cells[4, 4].Definite);
         }
         
         [Theory]
@@ -88,9 +121,10 @@ namespace Sudoku.Domain.Test
             }
         
             // Act
-            game.Place(new Point(x, y), number);
+            var place = game.Place(new Point(x, y), number);
             
             // Assert
+            Assert.True(place);
             Assert.Equal(number, game.Cells[y, x].Auxiliary[number - 1]);
         }
         
@@ -111,10 +145,12 @@ namespace Sudoku.Domain.Test
             var game = new GameReader().Read(path);
 
             // Act
-            game.Place(new Point(x, y), number);
-            game.Place(new Point(x, y), replace);
+            var place1 = game.Place(new Point(x, y), number);
+            var place2 = game.Place(new Point(x, y), replace);
             
             // Assert
+            Assert.True(place1);
+            Assert.True(place2);
             Assert.Equal(replace, game.Cells[y, x].Definite);
         }
 
@@ -135,10 +171,12 @@ namespace Sudoku.Domain.Test
             var game = new GameReader().Read(path);
 
             // Act
-            game.Place(new Point(x, y), number);
-            game.Place(new Point(x, y), number);
+            var place1 = game.Place(new Point(x, y), number);
+            var place2 = game.Place(new Point(x, y), number);
             
             // Assert
+            Assert.True(place1);
+            Assert.True(place2);
             Assert.Equal(0, game.Cells[y, x].Definite);
         }
         
@@ -163,10 +201,12 @@ namespace Sudoku.Domain.Test
             }
         
             // Act
-            game.Place(new Point(x, y), number);
-            game.Place(new Point(x, y), number);
+            var place1 = game.Place(new Point(x, y), number);
+            var place2 = game.Place(new Point(x, y), number);
             
             // Assert
+            Assert.True(place1);
+            Assert.True(place2);
             Assert.Equal(0, game.Cells[y, x].Auxiliary[number - 1]);
         }
     }

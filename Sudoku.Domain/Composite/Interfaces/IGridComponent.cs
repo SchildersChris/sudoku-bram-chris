@@ -4,8 +4,8 @@ namespace Sudoku.Domain.Composite.Interfaces
 {
     public interface IGridComponent
     {
-        bool Contains(int number);
-        void Place(Point point, int number, bool temporary);
+        bool CheckInverted(Point point, int number);
+        bool Place(Point point, int number, bool temporary);
         void Layout(ICell[,] cells);
     }
 }

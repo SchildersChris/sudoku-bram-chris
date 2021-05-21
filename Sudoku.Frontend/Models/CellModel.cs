@@ -6,8 +6,29 @@ namespace Sudoku.Frontend.Models
 {
     public class CellModel
     {
-        private readonly Color? _foreground;
-        private readonly Color? _background;
+        private Color? _foreground;
+        private Color? _background;
+
+        private bool _faulty;
+        public bool Faulty
+        {
+            get => _faulty;
+            set
+            {
+                _faulty = value;
+                if (_faulty)
+                {
+                    _foreground = Color.White;
+                    _background = Color.Red;
+                }
+                else
+                {
+                    _foreground = null;
+                    _background = null;
+                }
+            }
+        }
+
         public int GridNumber { get; }
         public int Definite { get; }
         public int[] Auxiliary { get; }
@@ -17,14 +38,6 @@ namespace Sudoku.Frontend.Models
             GridNumber = cell.GridNumber;
             Definite = cell.Definite;
             Auxiliary = cell.Auxiliary.Clone() as int[];
-
-            if (!cell.Faulty)
-            {
-                return;
-            }
-
-            _foreground = Color.White;
-            _background = Color.Red;
         }
 
         public override string ToString()

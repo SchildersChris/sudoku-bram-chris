@@ -9,7 +9,6 @@ namespace Sudoku.Domain.Composite
         public int GridNumber { get; }
         public int Definite { get; private set; }
         public int[] Auxiliary { get; }
-        public bool Faulty { get; private set; }
 
         public CellLeaf(Point point, int gridNumber, int totalAuxiliary, int number)
         {
@@ -17,32 +16,32 @@ namespace Sudoku.Domain.Composite
             GridNumber = gridNumber;
             Definite = number;
             Auxiliary = new int[totalAuxiliary];
-            Faulty = false;
         }
 
-        public bool Contains(int number)
+        public bool CheckInverted(Point point, int number)
         {
-            return Definite == number;
+            return _point != point && Definite == number;
         }
-        
-        public void Place(Point point, int number, bool temporary)
+
+        public bool Place(Point point, int number, bool temporary)
         {
             if (_point != point)
             {
-                return;
+                return !((_point.X == point.X || _point.Y == point.Y) && Definite == number);
             }
 
             if (temporary)
             {
-                if (Definite != 0)
+                if (Definite == 0)
                 {
-                    return;
+                    Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
                 }
-                Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
-                return;
             }
-
-            Definite = Definite == number ? 0 : number;
+            else
+            {
+                Definite = Definite == number ? 0 : number;
+            }
+            return true;
         }
 
         public void Layout(ICell[,] cells)

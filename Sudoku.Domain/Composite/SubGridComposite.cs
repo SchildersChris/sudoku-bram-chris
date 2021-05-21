@@ -9,15 +9,16 @@ namespace Sudoku.Domain.Composite
         public SubGridComposite(IEnumerable<IGridComponent> children) : base(children)
         {
         }
-        
-        public override void Place(Point point, int number, bool temporary)
+
+        public override bool Place(Point point, int number, bool temporary)
         {
-            if (temporary || !Contains(number))
+            if (temporary || !CheckInverted(point, number))
             {
-                base.Place(point, number, temporary);
-                return;
+                return base.Place(point, number, temporary);
             }
+            
             base.Place(point, number, false);
+            return false;
         }
     }
 }
