@@ -4,10 +4,10 @@ using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Domain.Composite
 {
-    public class SudokuGridComponent : GridComponent
+    public class SudokuGridComposite : GridComposite
     {
         private readonly Rectangle _rect;
-        public SudokuGridComponent(Rectangle rect, IEnumerable<IGridComponent> children) : base(children)
+        public SudokuGridComposite(Rectangle rect, IEnumerable<IGridComponent> children) : base(children)
         {
             _rect = rect;
         }

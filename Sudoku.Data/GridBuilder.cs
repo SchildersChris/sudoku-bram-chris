@@ -18,7 +18,7 @@ namespace Sudoku.Data
         public GridBuilder()
         {
             _gridNumber = 0;
-            _builder = children => new GridComponent(children);
+            _builder = children => new GridComposite(children);
             _leaves = new List<Func<int, IGridComponent>>();
             
             _builders = new List<GridBuilder>();
@@ -37,7 +37,7 @@ namespace Sudoku.Data
         {
             var builder = new GridBuilder(
                 _builders.Count + 1, 
-                children => new SudokuGridComponent(rect, children)
+                children => new SudokuGridComposite(rect, children)
             );
             _builders.Add(builder);
             return builder;
@@ -47,7 +47,7 @@ namespace Sudoku.Data
         {
             var builder = new GridBuilder(
                 _builders.Count + 1,
-                children => new SubGridComponent(children)
+                children => new SubGridComposite(children)
             );
             _builders.Add(builder);
             return builder;

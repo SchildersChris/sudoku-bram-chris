@@ -4,9 +4,9 @@ using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Domain.Composite
 {
-    public class SubGridComponent : GridComponent
+    public class SubGridComposite : GridComposite
     {
-        public SubGridComponent(IEnumerable<IGridComponent> children) : base(children)
+        public SubGridComposite(IEnumerable<IGridComponent> children) : base(children)
         {
         }
         

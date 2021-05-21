@@ -17,7 +17,7 @@ namespace Sudoku.Data.Test
             var grid = gridBuilder.Build();
 
             // Assert
-            Assert.IsType<GridComponent>(grid);
+            Assert.IsType<GridComposite>(grid);
         }
 
         [Fact]

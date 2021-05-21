@@ -5,10 +5,10 @@ using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Domain.Composite
 {
-    public class GridComponent : IGridComponent
+    public class GridComposite : IGridComponent
     {
         private readonly IEnumerable<IGridComponent> _children;
-        public GridComponent(IEnumerable<IGridComponent> children)
+        public GridComposite(IEnumerable<IGridComponent> children)
         {
             _children = children;
         }
