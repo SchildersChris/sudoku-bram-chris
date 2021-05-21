@@ -1,5 +1,5 @@
-﻿using Sudoku.Domain.Enums;
-using Sudoku.Domain.Models.Interfaces;
+﻿using Sudoku.Domain.Composite.Interfaces;
+using Sudoku.Domain.Enums;
 
 namespace Sudoku.Frontend.Models
 {
@@ -18,7 +18,11 @@ namespace Sudoku.Frontend.Models
             {
                 for (var x = 0; x < width; x++)
                 {
-                    Cells[y, x] = new CellModel(cells[y, x]);
+                    var cell = cells[y, x];
+                    if (cell != null)
+                    {
+                        Cells[y, x] = new CellModel(cell);
+                    }
                 }
             }
 

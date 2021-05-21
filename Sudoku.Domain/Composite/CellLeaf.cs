@@ -1,54 +1,44 @@
 ﻿using System.Drawing;
-using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Composite.Interfaces;
 
-namespace Sudoku.Domain.Models
+namespace Sudoku.Domain.Composite
 {
-    public class Cell : IGrid, ICell
+    public class CellLeaf : IGridComponent, ICell
     {
         private readonly Point _point;
         public int GridNumber { get; }
-        public int? Definite { get; private set; }
-        public int?[] Auxiliary { get; }
+        public int Definite { get; private set; }
+        public int[] Auxiliary { get; }
         public bool Faulty { get; private set; }
 
-        public Cell(Point point, int gridNumber, int totalAuxiliary, int? number = null)
+        public CellLeaf(Point point, int gridNumber, int totalAuxiliary, int number)
         {
             _point = point;
             GridNumber = gridNumber;
             Definite = number;
-            Auxiliary = new int?[totalAuxiliary];
+            Auxiliary = new int[totalAuxiliary];
             Faulty = false;
-        }
-
-        public int Count()
-        {
-            return 1;
         }
 
         public bool Check(int number)
         {
             return Definite == number;
         }
-
-        public bool Check(Point point, int number)
-        {
-            return _point.X == point.X || _point.Y == point.Y && Check(number);
-        }
-
+        
         public bool Place(Point point, int number, bool temporary)
         {
-            Faulty = !Check(point, number);
+            Faulty = (_point.X == point.X || _point.Y == point.Y) && Check(number);
             if (_point != point)
                 return Faulty;
 
             if (temporary)
             {
-                Auxiliary[number - 1] = Auxiliary[number - 1] == number ? null : number;
+                Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
                 return true;
             }
 
-            Definite = Definite == number ? null : number;
-            return Faulty;
+            Definite = Definite == number ? 0 : number;
+            return !Faulty;
         }
 
         public void Layout(ICell[,] cells)

@@ -1,19 +1,27 @@
 ﻿using System.Drawing;
+using Sudoku.Domain.Enums;
 
 namespace Sudoku.Domain.States
 {
     public class AuxiliaryNumberState : IEditorState
     {
-        private readonly Game _game;
+        private readonly GameElement _game;
+        public EditorState State { get; }
 
-        public AuxiliaryNumberState(Game game)
+        public AuxiliaryNumberState(GameElement game)
         {
             _game = game;
+            State = EditorState.AuxiliaryNumbers;
         }
 
         public bool Place(Point point, int number)
         {
-            return _game.Sudoku.Place(point, number, true);
+            return _game.Grid.Place(point, number, true);
+        }
+
+        public void SetState()
+        {
+            _game.SetState(new DefiniteNumberState(_game));
         }
     }
 }

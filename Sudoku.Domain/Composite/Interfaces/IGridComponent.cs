@@ -1,12 +1,10 @@
 ﻿using System.Drawing;
 
-namespace Sudoku.Domain.Models.Interfaces
+namespace Sudoku.Domain.Composite.Interfaces
 {
-    public interface IGrid
+    public interface IGridComponent
     {
-        int Count();
         bool Check(int number);
-        bool Check(Point point, int number);
         bool Place(Point point, int number, bool temporary);
         void Layout(ICell[,] cells);
     }

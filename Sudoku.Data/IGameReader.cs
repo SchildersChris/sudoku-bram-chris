@@ -4,6 +4,6 @@ namespace Sudoku.Data
 {
     public interface IGameReader
     {
-        IGame Read(string path);
+        IGameElement Read(string path);
     }
-}
+}   
