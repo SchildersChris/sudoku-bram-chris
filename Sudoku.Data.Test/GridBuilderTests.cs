@@ -49,7 +49,7 @@ namespace Sudoku.Data.Test
             {
                 for (var x = 0; x < cells.GetLength(1); x++)
                 {
-                    Assert.Equal(cells[y, x].GridNumber, y+1);
+                    Assert.Equal(cells[y, x].GridNumber, y);
                     Assert.Equal(cells[y, x].Definite, i++);
                 }
             }

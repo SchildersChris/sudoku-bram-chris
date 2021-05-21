@@ -14,14 +14,17 @@ namespace Sudoku.Domain.Composite
             _children = children;
         }
         
-        public virtual bool Check(int number)
+        public virtual bool Contains(int number)
         {
-            return _children.Any(c => c.Check(number));
+            return _children.Any(c => c.Contains(number));
         }
         
-        public virtual bool Place(Point point, int number, bool temporary)
+        public virtual void Place(Point point, int number, bool temporary)
         {
-            return _children.Any(c => c.Place(point, number, temporary));
+            foreach (var c in _children)
+            {
+                c.Place(point, number, temporary);
+            }
         }
         
         public virtual void Layout(ICell[,] cells)

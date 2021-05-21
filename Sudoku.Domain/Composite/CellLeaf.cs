@@ -20,25 +20,29 @@ namespace Sudoku.Domain.Composite
             Faulty = false;
         }
 
-        public bool Check(int number)
+        public bool Contains(int number)
         {
             return Definite == number;
         }
         
-        public bool Place(Point point, int number, bool temporary)
+        public void Place(Point point, int number, bool temporary)
         {
-            Faulty = (_point.X == point.X || _point.Y == point.Y) && Check(number);
             if (_point != point)
-                return Faulty;
+            {
+                return;
+            }
 
             if (temporary)
             {
+                if (Definite != 0)
+                {
+                    return;
+                }
                 Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
-                return true;
+                return;
             }
 
             Definite = Definite == number ? 0 : number;
-            return !Faulty;
         }
 
         public void Layout(ICell[,] cells)

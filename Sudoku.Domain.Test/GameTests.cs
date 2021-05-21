@@ -7,6 +7,43 @@ namespace Sudoku.Domain.Test
 {
     public class GameTests
     {
+        [Fact]
+        public void Should_Be_Definite_EditorState()
+        {
+            // Arrange 
+            var game = new GameReader().Read("./Resources/empty.9x9");
+
+            // Assert
+            Assert.Equal(EditorState.DefinitiveNumbers, game.State);
+        }
+
+        [Fact]
+        public void Should_Be_Auxiliary_EditorState()
+        {
+            // Arrange
+            var game = new GameReader().Read("./Resources/empty.9x9");
+            
+            // Act
+            game.ToggleState();
+        
+            // Assert
+            Assert.Equal(EditorState.AuxiliaryNumbers, game.State);
+        }
+
+        [Fact]
+        public void Should_Toggle_To_Definite_EditorState()
+        {
+            // Arrange
+            var game = new GameReader().Read("./Resources/empty.9x9");
+            
+            // Assert
+            game.ToggleState();
+            game.ToggleState();
+        
+            // Assert
+            Assert.Equal(EditorState.DefinitiveNumbers, game.State);
+        }
+        
         [Theory]
         [InlineData(1, 3, 1, "./Resources/empty.samurai")]
         [InlineData(2, 4, 2, "./Resources/empty.samurai")]
@@ -23,8 +60,10 @@ namespace Sudoku.Domain.Test
             // Arrange
             var game = new GameReader().Read(path);
 
-            // Act & Assert
-            Assert.True(game.Place(new Point(x, y), number));
+            // Act
+            game.Place(new Point(x, y), number);
+            
+            // Assert
             Assert.Equal(number, game.Cells[y, x].Definite);
         }
         
@@ -48,8 +87,10 @@ namespace Sudoku.Domain.Test
                 game.ToggleState();
             }
         
-            // Act & Assert
-            Assert.True(game.Place(new Point(x, y), number));
+            // Act
+            game.Place(new Point(x, y), number);
+            
+            // Assert
             Assert.Equal(number, game.Cells[y, x].Auxiliary[number - 1]);
         }
         
@@ -69,13 +110,14 @@ namespace Sudoku.Domain.Test
             // Arrange
             var game = new GameReader().Read(path);
 
-            // Act & Assert
-            Assert.True(game.Place(new Point(x, y), number));
-            Assert.True(game.Place(new Point(x, y), replace));
+            // Act
+            game.Place(new Point(x, y), number);
+            game.Place(new Point(x, y), replace);
+            
+            // Assert
             Assert.Equal(replace, game.Cells[y, x].Definite);
         }
-        
-        
+
         [Theory]
         [InlineData(1, 3, 1, "./Resources/empty.samurai")]
         [InlineData(2, 4, 2, "./Resources/empty.samurai")]
@@ -92,9 +134,11 @@ namespace Sudoku.Domain.Test
             // Arrange
             var game = new GameReader().Read(path);
 
-            // Act & Assert
-            Assert.True(game.Place(new Point(x, y), number));
-            Assert.False(game.Place(new Point(x, y), number));
+            // Act
+            game.Place(new Point(x, y), number);
+            game.Place(new Point(x, y), number);
+            
+            // Assert
             Assert.Equal(0, game.Cells[y, x].Definite);
         }
         
@@ -118,9 +162,11 @@ namespace Sudoku.Domain.Test
                 game.ToggleState();
             }
         
-            // Act & Assert
-            Assert.True(game.Place(new Point(x, y), number));
-            Assert.True(game.Place(new Point(x, y), number));
+            // Act
+            game.Place(new Point(x, y), number);
+            game.Place(new Point(x, y), number);
+            
+            // Assert
             Assert.Equal(0, game.Cells[y, x].Auxiliary[number - 1]);
         }
     }
