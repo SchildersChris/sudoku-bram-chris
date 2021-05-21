@@ -4,11 +4,7 @@
     {
         public void Visit(GameElement game)
         {
-            var cells = game.Cells;
-            foreach (var cell in cells)
-            {
-                // Todo: Add backtracking ding
-            }
+            // Todo: Add backtracking ding
         }
     }
 }

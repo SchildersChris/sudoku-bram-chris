@@ -20,12 +20,7 @@ namespace Sudoku.Data
 
         public IGameElement Read(string path)
         {
-            var extension = Path.GetExtension(path).Skip(1).ToString();
-            if (extension == null)
-            {
-                throw new ArgumentException($"The the following path: '{path}' is not valid", nameof(path));
-            }
-
+            var extension = new string(Path.GetExtension(path).Skip(1).ToArray());
             if (!Strategies.ContainsKey(extension))
             {
                 throw new ArgumentException($"There is no strategy registered for: '{extension}'", nameof(extension));

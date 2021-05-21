@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include=".\Resources\**" CopyToOutputDirectory="PreserveNewest" />
+        <None Include=".\Resources\**" CopyToOutputDirectory="Always" />
     </ItemGroup>
     
 </Project>

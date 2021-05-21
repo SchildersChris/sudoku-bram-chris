@@ -26,7 +26,6 @@ namespace Sudoku.Data.Test
         }
 
         [Theory]
-        [InlineData("path", null)]
         [InlineData("extension", "./Resources/puzzle.nonExisting")]
         [InlineData("lines", "./Resources/faulty.samurai")]
         public void Should_Throw_ArgumentException(string paramName, string path)
