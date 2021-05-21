@@ -11,6 +11,7 @@ namespace Sudoku.Domain.States
         public DefiniteNumberState(GameElement game)
         {
             _game = game;
+            State = EditorState.DefinitiveNumbers;
         }
 
         public bool Place(Point point, int number)

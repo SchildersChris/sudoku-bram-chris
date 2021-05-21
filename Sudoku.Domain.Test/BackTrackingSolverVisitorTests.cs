@@ -1,6 +1,6 @@
 ﻿namespace Sudoku.Domain.Test
 {
-    public class BackTrackingSolverTests
+    public class BackTrackingSolverVisitorTests
     {
         // Todo: Write Tests
     }
