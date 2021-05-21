@@ -34,6 +34,12 @@ namespace Sudoku.Frontend.Controllers
         {
             switch (key)
             {
+                case ConsoleKey.Spacebar:
+                {
+                    _game.ToggleState();
+                    _model.State = _game.State;
+                    break;
+                }
                 // Todo: Do action
             }
 
