@@ -35,6 +35,8 @@ namespace Sudoku.Frontend.Views
 
                 Console.Write('\n');
             }
+            
+            Console.WriteLine($"\nCurrent view mode: {_model.State.ToString()} ");
         }
     }
 }
