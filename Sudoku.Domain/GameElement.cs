@@ -10,24 +10,16 @@ namespace Sudoku.Domain
     {
         private IEditorState _currentState;
         public EditorState State => _currentState.State;
-
-        private readonly ICell[,] _cells;
-        public ICell[,] Cells
-        {
-            get
-            {
-                Grid.Layout(_cells);
-                return _cells;
-            }
-        }
-
+        public ICell[,] Cells { get; }
         public IGridComponent Grid { get; }
 
         public GameElement(int length, IGridComponent grid)
         {
             _currentState = new DefiniteNumberState(this);
-            _cells = new ICell[length, length];
+            Cells = new ICell[length, length];
+            
             Grid = grid;
+            Grid.Layout(Cells);
         }
 
         public void Place(Point point, int number)
