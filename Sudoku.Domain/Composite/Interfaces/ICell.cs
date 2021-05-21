@@ -1,4 +1,4 @@
-﻿namespace Sudoku.Domain.Models.Interfaces
+﻿namespace Sudoku.Domain.Composite.Interfaces
 {
     public interface ICell
     {

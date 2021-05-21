@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Data.Factories
 {
     public class RegularFactory : BaseRegularFactory
     {
-        public override (int, IGrid) Create(IEnumerable<string> lines)
+        public override (int, IGridComponent) Create(IEnumerable<string> lines)
         {
             var line = lines.First();
             AddSudoku(line, 0, 0);

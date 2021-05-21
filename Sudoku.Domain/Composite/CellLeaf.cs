@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
-using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Composite.Interfaces;
 
-namespace Sudoku.Domain.Models
+namespace Sudoku.Domain.Composite
 {
-    public class Cell : IGrid, ICell
+    public class CellLeaf : IGridComponent, ICell
     {
         private readonly Point _point;
         public int GridNumber { get; }
@@ -11,7 +11,7 @@ namespace Sudoku.Domain.Models
         public int[] Auxiliary { get; }
         public bool Faulty { get; private set; }
 
-        public Cell(Point point, int gridNumber, int totalAuxiliary, int number)
+        public CellLeaf(Point point, int gridNumber, int totalAuxiliary, int number)
         {
             _point = point;
             GridNumber = gridNumber;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Sudoku.Data.Factories;
 using Sudoku.Domain;
 
@@ -10,16 +11,16 @@ namespace Sudoku.Data
     {
         private static readonly Dictionary<string, Type> Strategies = new()
         {
-            {".jigsaw", typeof(JigsawFactory)},
-            {".samurai", typeof(SamuraiFactory)},
-            {".4x4", typeof(RegularFactory)},
-            {".6x6", typeof(RegularFactory)},
-            {".9x9", typeof(RegularFactory)},
+            {"jigsaw", typeof(JigsawFactory)},
+            {"samurai", typeof(SamuraiFactory)},
+            {"4x4", typeof(RegularFactory)},
+            {"6x6", typeof(RegularFactory)},
+            {"9x9", typeof(RegularFactory)},
         };
 
-        public IGame Read(string path)
+        public IGameElement Read(string path)
         {
-            var extension = Path.GetExtension(path);
+            var extension = Path.GetExtension(path).Skip(1).ToString();
             if (extension == null)
             {
                 throw new ArgumentException($"The the following path: '{path}' is not valid", nameof(path));
@@ -37,7 +38,7 @@ namespace Sudoku.Data
             }
 
             var (len, grid) = factory.Create(File.ReadLines(path));
-            return new Game(len, grid);
+            return new GameElement(len, grid);
         }
     }
 }

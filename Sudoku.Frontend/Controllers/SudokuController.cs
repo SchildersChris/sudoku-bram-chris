@@ -11,12 +11,15 @@ namespace Sudoku.Frontend.Controllers
     {
         private readonly SudokuView _view;
         private readonly SudokuModel _model;
-        private readonly IGame _game;
-        private readonly ISolver _solver;
+        private readonly IGameElement _game;
+        private readonly ISolverVisitor _solver;
 
-        public SudokuController(IGame game, bool simpleDisplay)
+        public SudokuController(IGameElement game, bool simpleDisplay)
         {
-            game.State = simpleDisplay ? EditorState.DefinitiveNumbers : EditorState.AuxiliaryNumbers;
+            if (simpleDisplay && game.State != EditorState.DefinitiveNumbers)
+            {
+                game.ToggleState();
+            }
 
             _model = new SudokuModel(game.Cells)
             {
@@ -24,7 +27,7 @@ namespace Sudoku.Frontend.Controllers
             };
             _view = new SudokuView(_model);
             _game = game;
-            _solver = new BackTrackingSolver();
+            _solver = new BackTrackingSolverVisitor();
         }
 
         public void Update(ConsoleKey key)

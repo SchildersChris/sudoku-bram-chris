@@ -1,6 +1,6 @@
 using System.Drawing;
-using Sudoku.Domain.Models;
-using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Composite;
+using Sudoku.Domain.Composite.Interfaces;
 using Xunit;
 
 namespace Sudoku.Data.Test
@@ -17,7 +17,7 @@ namespace Sudoku.Data.Test
             var grid = gridBuilder.Build();
 
             // Assert
-            Assert.IsType<Grid>(grid);
+            Assert.IsType<GridComponent>(grid);
         }
 
         [Fact]

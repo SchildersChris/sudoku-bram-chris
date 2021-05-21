@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Composite.Interfaces;
 
-namespace Sudoku.Domain.Models
+namespace Sudoku.Domain.Composite
 {
-    public class SudokuGrid : Grid
+    public class SudokuGridComponent : GridComponent
     {
         private readonly Rectangle _rect;
-        public SudokuGrid(Rectangle rect, IEnumerable<IGrid> children) : base(children)
+        public SudokuGridComponent(Rectangle rect, IEnumerable<IGridComponent> children) : base(children)
         {
             _rect = rect;
         }

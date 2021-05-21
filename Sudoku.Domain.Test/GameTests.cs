@@ -22,7 +22,10 @@ namespace Sudoku.Domain.Test
         {
             // Arrange
             var game = new GameReader().Read(path);
-            game.State = EditorState.DefinitiveNumbers;
+            if (game.State != EditorState.DefinitiveNumbers)
+            {
+                game.ToggleState();
+            }
         
             // Act & Assert
             Assert.True(game.Place(new Point(x, y), number));

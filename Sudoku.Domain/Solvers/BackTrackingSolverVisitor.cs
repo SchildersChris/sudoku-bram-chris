@@ -1,8 +1,8 @@
 ﻿namespace Sudoku.Domain.Solvers
 {
-    public class BackTrackingSolver : ISolver
+    public class BackTrackingSolverVisitor : ISolverVisitor
     {
-        public void Visit(IGame game)
+        public void Visit(GameElement game)
         {
             var cells = game.Cells;
             foreach (var cell in cells)

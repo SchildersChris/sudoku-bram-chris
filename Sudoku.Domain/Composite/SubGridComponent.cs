@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Composite.Interfaces;
 
-namespace Sudoku.Domain.Models
+namespace Sudoku.Domain.Composite
 {
-    public class SubGrid : Grid
+    public class SubGridComponent : GridComponent
     {
-        public SubGrid(IEnumerable<IGrid> children) : base(children)
+        public SubGridComponent(IEnumerable<IGridComponent> children) : base(children)
         {
         }
         

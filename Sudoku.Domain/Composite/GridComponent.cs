@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Composite.Interfaces;
 
-namespace Sudoku.Domain.Models
+namespace Sudoku.Domain.Composite
 {
-    public class Grid : IGrid
+    public class GridComponent : IGridComponent
     {
-        private readonly IEnumerable<IGrid> _children;
-        public Grid(IEnumerable<IGrid> children)
+        private readonly IEnumerable<IGridComponent> _children;
+        public GridComponent(IEnumerable<IGridComponent> children)
         {
             _children = children;
         }

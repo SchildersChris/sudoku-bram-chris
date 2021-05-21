@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using Pastel;
-using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Frontend.Models
 {

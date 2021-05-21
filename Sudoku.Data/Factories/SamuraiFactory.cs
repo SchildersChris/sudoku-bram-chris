@@ -4,13 +4,13 @@ using System.Drawing;
 using System.Linq;
 using Sudoku.Data.Extensions;
 using Sudoku.Domain;
-using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Data.Factories
 {
     public class SamuraiFactory : BaseRegularFactory
     {
-        public override (int, IGrid) Create(IEnumerable<string> lines)
+        public override (int, IGridComponent) Create(IEnumerable<string> lines)
         {
             var linesArr = lines as string[] ?? lines.ToArray();
             if (linesArr.Length != 5)

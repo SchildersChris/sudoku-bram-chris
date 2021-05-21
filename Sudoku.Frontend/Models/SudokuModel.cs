@@ -1,5 +1,5 @@
-﻿using Sudoku.Domain.Enums;
-using Sudoku.Domain.Models.Interfaces;
+﻿using Sudoku.Domain.Composite.Interfaces;
+using Sudoku.Domain.Enums;
 
 namespace Sudoku.Frontend.Models
 {
