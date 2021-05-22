@@ -5,6 +5,13 @@ namespace Sudoku.Common.Extensions
 {
     public static class IntExtensions
     {
+        /// <summary>
+        /// This method will factorize a given natural number into its optimal factors.
+        /// Given a number x this algorithm will find the optimal factors a and b, so a * b = x
+        /// </summary>
+        /// <param name="origin">Natural number to be factorized</param>
+        /// <returns>Optimal factor in two natural numbers</returns>
+        /// <exception cref="ArgumentException">The provided number is not the product of two natural numbers</exception>
         public static (int, int) Factorize(this int origin)
         {
             var sqrt = Math.Sqrt(origin);
@@ -31,7 +38,7 @@ namespace Sudoku.Common.Extensions
 
             if (pairs.Count == 0)
             {
-                throw new ArgumentException("Unable to find factors", nameof(origin));
+                throw new ArgumentException("The provided number is not the product of two natural numbers", nameof(origin));
             }
 
             var min = int.MaxValue;
