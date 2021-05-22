@@ -9,6 +9,7 @@ namespace Sudoku.Common.Test
         [Theory]
         [InlineData(6, 3, 2)]
         [InlineData(15, 5, 3)]
+        [InlineData(28, 7, 4)]
         [InlineData(8, 4, 2)]
         public void Should_Factorize_Number(int number, int factor1, int factor2)
         {
