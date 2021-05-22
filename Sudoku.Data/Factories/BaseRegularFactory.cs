@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Sudoku.Data.Extensions;
+using Sudoku.Common.Extensions;
 using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Data.Factories

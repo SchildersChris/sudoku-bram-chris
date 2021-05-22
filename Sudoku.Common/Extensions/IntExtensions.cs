@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sudoku.Data.Extensions
+namespace Sudoku.Common.Extensions
 {
     public static class IntExtensions
     {
@@ -15,7 +15,7 @@ namespace Sudoku.Data.Extensions
                 return (a, b);
             }
             
-            var len = (int)Math.Ceiling(sqrt);
+            var len = origin / 2;
             for (var i = 1; i <= len; i++)
             {
                 for (var j = len; j > 0; j--)
