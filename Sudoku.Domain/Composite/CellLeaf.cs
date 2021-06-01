@@ -49,7 +49,7 @@ namespace Sudoku.Domain.Composite
             if (_point.X >= cells.GetLength(1) || _point.Y >= cells.GetLength(0)) 
                 return;
             
-            if (cells[_point.Y, _point.X] == null || cells[_point.Y, _point.X].Definite < Definite)
+            if (cells[_point.Y, _point.X] == null || cells[_point.Y, _point.X].Definite != 0)
             {
                 cells[_point.Y, _point.X] = this;
             }
