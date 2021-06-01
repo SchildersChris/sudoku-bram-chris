@@ -13,9 +13,9 @@ namespace Sudoku.Domain.Composite
             _rect = rect;
         }
         
-        public override bool Place(Point point, int number, bool temporary)
+        public override bool Place(Point point, int number, bool isAuxiliary)
         {
-            return !_rect.Contains(point) || base.Place(point, number, temporary);
+            return !_rect.Contains(point) || base.Place(point, number, isAuxiliary);
         }
     }
 }

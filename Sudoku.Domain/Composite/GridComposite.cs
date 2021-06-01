@@ -19,12 +19,12 @@ namespace Sudoku.Domain.Composite
             return _children.Any(c => c.CheckInverted(point, number));
         }
 
-        public virtual bool Place(Point point, int number, bool temporary)
+        public virtual bool Place(Point point, int number, bool isAuxiliary)
         {
             var place = true;
             foreach (var c in _children)
             {
-                if (!c.Place(point, number, temporary))
+                if (!c.Place(point, number, isAuxiliary))
                 {
                     place = false;
                 }

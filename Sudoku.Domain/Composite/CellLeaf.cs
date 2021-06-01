@@ -23,14 +23,14 @@ namespace Sudoku.Domain.Composite
             return _point != point && Definite == number;
         }
 
-        public bool Place(Point point, int number, bool temporary)
+        public bool Place(Point point, int number, bool isAuxiliary)
         {
             if (_point != point)
             {
                 return !((_point.X == point.X || _point.Y == point.Y) && Definite == number);
             }
 
-            if (temporary)
+            if (isAuxiliary)
             {
                 if (Definite == 0)
                 {
