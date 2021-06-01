@@ -40,6 +40,11 @@ namespace Sudoku.Frontend.Controllers
                     _model.State = _game.State;
                     break;
                 }
+                case ConsoleKey.S:
+                {
+                    _game.Accept(_solver);
+                    break;
+                }
                 // Todo: Do actions 
             }
 
