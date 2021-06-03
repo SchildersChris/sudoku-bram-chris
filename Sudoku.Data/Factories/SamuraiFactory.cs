@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Data.Factories
 {
     public class SamuraiFactory : BaseRegularFactory
     {
-        public override (int, IGridComponent) Create(IEnumerable<string> lines)
+        protected override int Construct(IEnumerable<string> lines)
         {
             var linesArr = lines as string[] ?? lines.ToArray();
             if (linesArr.Length != 5)
+            {
                 throw new ArgumentException("Invalid amount of lines for a SamuraiSudoku", nameof(lines));
+            }
 
             AddSudoku(linesArr[0], 0, 0);
             AddSudoku(linesArr[1], 12, 0);
@@ -19,7 +20,7 @@ namespace Sudoku.Data.Factories
             AddSudoku(linesArr[3], 0, 12);
             AddSudoku(linesArr[4], 12, 12);
 
-            return (21, Build());
+            return 21;
         }
     }
 }

@@ -15,13 +15,13 @@ namespace Sudoku.Data.Factories
             _gridBuilder = new GridBuilder();
         }
 
-        public abstract (int, IGridComponent) Create(IEnumerable<string> lines);
+        protected abstract int Construct(IEnumerable<string> lines);
 
         protected void AddSudoku(string line, int xStart, int yStart)
         {
             var length = (int) Math.Sqrt(line.Length);
             var (width, height) = length.Factorize();
-            
+
             var sudoku = _gridBuilder.AddSudokuGrid(new Rectangle(xStart, yStart, length, length));
             var subGrids = new List<GridBuilder>();
             for (var i = 0; i < length; i++)
@@ -45,9 +45,12 @@ namespace Sudoku.Data.Factories
             }
         }
 
-        protected IGridComponent Build()
+        public (int, IGridComponent) Create(IEnumerable<string> lines)
         {
-            return _gridBuilder.Build();
+            var length = Construct(lines);
+            var grid = _gridBuilder.Build();
+
+            return (length, grid);
         }
     }
 }
