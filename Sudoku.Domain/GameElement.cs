@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Sudoku.Common.Extensions;
 using Sudoku.Domain.Composite.Interfaces;
 using Sudoku.Domain.Enums;
 using Sudoku.Domain.Solvers;
@@ -9,7 +10,6 @@ namespace Sudoku.Domain
 {
     public class GameElement : IGameElement
     {
-        private readonly Rectangle _bounds;
         private IEditorState _currentState;
         public EditorState State => _currentState.State;
         public ICell[,] Cells { get; }
@@ -17,7 +17,6 @@ namespace Sudoku.Domain
 
         public GameElement(int length, IGridComponent grid)
         {
-            _bounds = new Rectangle(0, 0, length, length);
             _currentState = new DefiniteNumberState(this);
             Cells = new ICell[length, length];
             
@@ -27,10 +26,11 @@ namespace Sudoku.Domain
 
         public bool Place(Point point, int number)
         {
-            if (!_bounds.Contains(point))
+            if (!Cells.Contains(point))
             {
                 throw new ArgumentException("Point must be within the board bounds", nameof(point));
             }
+            
             return _currentState.Place(point, number);
         }
 
