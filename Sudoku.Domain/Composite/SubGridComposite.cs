@@ -12,7 +12,7 @@ namespace Sudoku.Domain.Composite
 
         public override bool Place(Point point, int number, bool isAuxiliary)
         {
-            if (isAuxiliary || !CheckInverted(point, number))
+            if (isAuxiliary || !Check(point, number, false))
             {
                 return base.Place(point, number, isAuxiliary);
             }
