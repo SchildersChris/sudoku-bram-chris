@@ -48,7 +48,8 @@ namespace Sudoku.Frontend.Controllers
                 // Todo: Do actions 
             }
 
-            // Todo: Update model
+            // Todo: Properly update model
+            _model.UpdateCells();
 
             _view.Update();
         }

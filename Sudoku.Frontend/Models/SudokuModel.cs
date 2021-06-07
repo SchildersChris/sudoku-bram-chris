@@ -15,9 +15,19 @@ namespace Sudoku.Frontend.Models
         {
             _cells = cells;
             
-            var width = cells.GetLength(1);
-            var height = cells.GetLength(0);
+            var width = _cells.GetLength(1);
+            var height = _cells.GetLength(0);
             Cells = new CellModel[height, width];
+            
+            UpdateCells();
+            
+            State = EditorState.DefinitiveNumbers;
+        }
+
+        public void UpdateCells()
+        {
+            var width = _cells.GetLength(1);
+            var height = _cells.GetLength(0);
 
             for (var y = 0; y < height; y++)
             {
@@ -30,8 +40,6 @@ namespace Sudoku.Frontend.Models
                     }
                 }
             }
-
-            State = EditorState.DefinitiveNumbers;
         }
 
         void Move()
