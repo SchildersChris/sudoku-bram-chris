@@ -1,6 +1,4 @@
-﻿using Sudoku.Domain.Solvers;
-
-namespace Sudoku.Domain.Visitors
+﻿namespace Sudoku.Domain.Visitors
 {
     public class BackTrackingSolverVisitor : ISolverVisitor
     {

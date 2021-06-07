@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using Sudoku.Domain.Composite.Interfaces;
 using Sudoku.Domain.Enums;
-using Sudoku.Domain.Solvers;
+using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain
 {

@@ -3,8 +3,8 @@ using System.Drawing;
 using Sudoku.Common.Extensions;
 using Sudoku.Domain.Composite.Interfaces;
 using Sudoku.Domain.Enums;
-using Sudoku.Domain.Solvers;
 using Sudoku.Domain.States;
+using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain
 {

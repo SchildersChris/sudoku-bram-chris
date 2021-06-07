@@ -1,7 +1,6 @@
 ﻿using System;
 using Sudoku.Domain;
 using Sudoku.Domain.Enums;
-using Sudoku.Domain.Solvers;
 using Sudoku.Domain.Visitors;
 using Sudoku.Frontend.Models;
 using Sudoku.Frontend.Views;
