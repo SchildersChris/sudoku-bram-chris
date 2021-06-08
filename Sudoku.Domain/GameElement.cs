@@ -34,22 +34,21 @@ namespace Sudoku.Domain
             }
 
             _currentState.Place(point, number);
-            Errors[point.Y, point.Y] = !Check(point, number);
         }
 
         public bool Check(Point point, int number)
         {
-            var cell = Cells[point.Y, point.X];
+            var cell = Cells.Get(point);
             if (cell == null)
             {
                 return true;
             }
 
-            for (var y = 0; y < Cells.GetLength(0); y++)
+            for (var y = 0; y < Cells.GetHeight(); y++)
             {
-                for (var x = 0; x < Cells.GetLength(1); x++)
+                for (var x = 0; x < Cells.GetWidth(); x++)
                 {
-                    var c = Cells[y, x];
+                    var c = Cells.Get(x, y);
                     if (c != null &&
                         (point.Y != y || point.X != x) &&
                         c.GridNumber == cell.GridNumber &&

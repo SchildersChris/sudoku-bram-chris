@@ -21,6 +21,11 @@ namespace Sudoku.Domain.Composite
 
         public bool Check(Point point, int number)
         {
+            if (_point == point)
+            {
+                return true;
+            }
+            
             return !((_point.X == point.X || _point.Y == point.Y) && Definite == number);
         }
 
@@ -50,10 +55,11 @@ namespace Sudoku.Domain.Composite
             {
                 return;
             }
-            
-            if (cells[_point.Y, _point.X] == null || cells[_point.Y, _point.X].Definite != 0)
+
+            var c = cells.Get(_point);
+            if (c == null || c.Definite == 0)
             {
-                cells[_point.Y, _point.X] = this;
+                cells.Set(_point, this);
             }
         }
     }

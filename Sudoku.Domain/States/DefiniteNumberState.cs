@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Sudoku.Common.Extensions;
 using Sudoku.Domain.Enums;
 
 namespace Sudoku.Domain.States
@@ -17,6 +18,7 @@ namespace Sudoku.Domain.States
         public void Place(Point point, int number)
         {
             _game.Grid.Place(point, number, false);
+            _game.Errors.Set(point, !_game.Check(point, number));
         }
 
         public void SetState()

@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Xml;
+using Sudoku.Common.Extensions;
 using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Domain.Visitors
@@ -28,6 +31,8 @@ namespace Sudoku.Domain.Visitors
                     continue;
                 }
 
+                Console.WriteLine($"Solving: {p.ToString()}, Number: {i}");
+                
                 game.Grid.Place(p, i, false);
                 if (Solve(game))
                 {
@@ -43,11 +48,12 @@ namespace Sudoku.Domain.Visitors
         
         private static Point? FindEmpty(bool?[,] errors, ICell[,] cells)
         {
-            for (var y = 0; y < errors.GetLength(0); y++)
+            for (var y = 0; y < errors.GetHeight(); y++)
             {
-                for (var x = 0; x < errors.GetLength(1); x++)
+                for (var x = 0; x < errors.GetWidth(); x++)
                 {
-                    if (errors[y, x] == true || cells[y, x] != null && cells[y, x].Definite == 0)
+                    var c = cells.Get(x, y);
+                    if (errors.Get(x, y) == true || c is { Definite: 0 })
                     {
                         return new Point(x, y);
                     }
