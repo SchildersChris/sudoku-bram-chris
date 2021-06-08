@@ -11,7 +11,21 @@ namespace Sudoku.Domain.Composite
         {
             _children = children;
         }
-        
+
+        public virtual bool Contains(Point point, int number, int gridNumber)
+        {
+            // ReSharper disable once LoopCanBeConvertedToQuery
+            foreach (var c in _children)
+            {
+                if (!c.Contains(point, number, gridNumber))
+                {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
         public virtual bool Check(Point point, int number)
         {
             // ReSharper disable once LoopCanBeConvertedToQuery

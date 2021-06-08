@@ -7,9 +7,6 @@ namespace Sudoku.Domain.Visitors
 {
     public class BackTrackingSolverVisitor : ISolverVisitor
     {
-        // Todo: @Bram Get this number from Game 
-        private const int Number = 9;
-
         public void Visit(GameElement game)
         {
             Solve(game);
@@ -23,10 +20,10 @@ namespace Sudoku.Domain.Visitors
                 return true;
             }
 
-            for (var i = 1; i <= Number; i++)
+            for (var i = 1; i <= game.Numbers; i++)
             {
                 var p = empty.Value;
-                if (!game.Check(p, i))
+                if (!game.Validate(p, i))
                 {
                     continue;
                 }

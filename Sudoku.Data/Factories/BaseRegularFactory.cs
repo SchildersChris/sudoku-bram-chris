@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Sudoku.Common.Extensions;
+using Sudoku.Domain;
 using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Data.Factories
@@ -15,7 +16,7 @@ namespace Sudoku.Data.Factories
             _gridBuilder = new GridBuilder(0);
         }
 
-        protected abstract int Construct(IEnumerable<string> lines);
+        protected abstract (int numbers, int length) Construct(IEnumerable<string> lines);
 
         protected void AddSudoku(string line, int xStart, int yStart)
         {
@@ -45,12 +46,10 @@ namespace Sudoku.Data.Factories
             }
         }
 
-        public (int, IGridComponent) Create(IEnumerable<string> lines)
+        public IGameElement Create(IEnumerable<string> lines)
         {
-            var length = Construct(lines);
-            var grid = _gridBuilder.Build();
-
-            return (length, grid);
+            var (numbers, length) = Construct(lines);
+            return new GameElement(numbers, length, _gridBuilder.Build());
         }
     }
 }

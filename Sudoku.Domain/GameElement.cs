@@ -15,8 +15,9 @@ namespace Sudoku.Domain
         public ICell[,] Cells { get; }
         public bool?[,] Errors { get;  }
         public IGridComponent Grid { get; }
+        public int Numbers { get; }
 
-        public GameElement(int length, IGridComponent grid)
+        public GameElement(int numbers, int length, IGridComponent grid)
         {
             _currentState = new DefiniteNumberState(this);
             Cells = new ICell[length, length];
@@ -24,6 +25,7 @@ namespace Sudoku.Domain
             
             Grid = grid;
             Grid.Layout(Cells);
+            Numbers = numbers;
         }
 
         public void Place(Point point, int number)
@@ -36,31 +38,15 @@ namespace Sudoku.Domain
             _currentState.Place(point, number);
         }
 
-        public bool Check(Point point, int number)
+        public bool Validate(Point point, int number)
         {
             var cell = Cells.Get(point);
             if (cell == null)
             {
                 return true;
             }
-
-            for (var y = 0; y < Cells.GetHeight(); y++)
-            {
-                for (var x = 0; x < Cells.GetWidth(); x++)
-                {
-                    var c = Cells.Get(x, y);
-                    if (c != null &&
-                        (point.Y != y || point.X != x) &&
-                        c.GridNumber == cell.GridNumber &&
-                        c.Definite != 0 &&
-                        c.Definite == cell.Definite)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return Grid.Check(point, number);
+            
+            return Grid.Contains(point, number, cell.GridNumber) &&  Grid.Check(point, number);
         }
 
         public void ToggleState()

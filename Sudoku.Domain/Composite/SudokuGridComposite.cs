@@ -12,9 +12,24 @@ namespace Sudoku.Domain.Composite
             _rect = rect;
         }
         
+        public override bool Contains(Point point, int number, int gridNumber)
+        {
+            if (!_rect.Contains(point))
+            {
+                return true;
+            }
+            
+            return base.Contains(point, number, gridNumber);
+        }
+        
         public override bool Check(Point point, int number)
         {
-            return !_rect.Contains(point) || base.Check(point, number);
+            if (!_rect.Contains(point))
+            {
+                return true;
+            }
+            
+            return base.Check(point, number);
         }
         
         public override void Place(Point point, int number, bool isAuxiliary)

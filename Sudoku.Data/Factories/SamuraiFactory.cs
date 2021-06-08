@@ -6,7 +6,7 @@ namespace Sudoku.Data.Factories
 {
     public class SamuraiFactory : BaseRegularFactory
     {
-        protected override int Construct(IEnumerable<string> lines)
+        protected override (int numbers, int length) Construct(IEnumerable<string> lines)
         {
             var linesArr = lines as string[] ?? lines.ToArray();
             if (linesArr.Length != 5)
@@ -20,7 +20,7 @@ namespace Sudoku.Data.Factories
             AddSudoku(linesArr[3], 0, 12);
             AddSudoku(linesArr[4], 12, 12);
 
-            return 21;
+            return (9, 21);
         }
     }
 }

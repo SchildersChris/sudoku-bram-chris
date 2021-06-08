@@ -19,6 +19,11 @@ namespace Sudoku.Domain.Composite
             Auxiliary = new int[totalAuxiliary];
         }
 
+        public bool Contains(Point point, int number, int gridNumber)
+        {
+            return !(_point != point && Definite == number && GridNumber == gridNumber);
+        }
+
         public bool Check(Point point, int number)
         {
             if (_point == point)

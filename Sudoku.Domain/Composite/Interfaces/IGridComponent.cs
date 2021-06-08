@@ -5,6 +5,15 @@ namespace Sudoku.Domain.Composite.Interfaces
     public interface IGridComponent
     {
         /// <summary>
+        /// Checks if a point is contained inside a grid
+        /// </summary>
+        /// <param name="point">Original point coordinate</param>
+        /// <param name="number">Number to check</param>
+        /// <param name="gridNumber">Grid number to check</param>
+        /// <returns></returns>
+        bool Contains(Point point, int number, int gridNumber);
+        
+        /// <summary>
         /// Checks if a certain number is allowed on a point
         /// </summary>
         /// <param name="point">Point coordinate to check</param>
