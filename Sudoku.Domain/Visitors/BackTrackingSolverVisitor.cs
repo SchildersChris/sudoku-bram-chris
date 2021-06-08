@@ -31,7 +31,7 @@ namespace Sudoku.Domain.Visitors
                     continue;
                 }
 
-                Console.WriteLine($"Solving: {p.ToString()}, Number: {i}");
+                // Console.WriteLine($"Solving: {p.ToString()}, Number: {i}");
                 
                 game.Grid.Place(p, i, false);
                 if (Solve(game))
