@@ -1,35 +1,37 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Drawing;
 using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Domain.Composite
 {
     public class GridComposite : IGridComponent
     {
-        private readonly IEnumerable<IGridComponent> _children;
+        private readonly IGridComponent[] _children;
         
-        public GridComposite(IEnumerable<IGridComponent> children)
+        public GridComposite(IGridComponent[] children)
         {
             _children = children;
         }
         
-        public virtual bool Check(Point point, int number, bool match)
+        public virtual bool Check(Point point, int number)
         {
-            return _children.Any(c => c.Check(point, number, match));
-        }
-
-        public virtual bool Place(Point point, int number, bool isAuxiliary)
-        {
-            var place = true;
+            // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var c in _children)
             {
-                if (!c.Place(point, number, isAuxiliary))
+                if (!c.Check(point, number))
                 {
-                    place = false;
+                    return false;
                 }
             }
-            return place;
+            
+            return true;
+        }
+
+        public virtual void Place(Point point, int number, bool isAuxiliary)
+        {
+            foreach (var c in _children)
+            {
+                c.Place(point, number, isAuxiliary);
+            }
         }
         
         public virtual void Layout(ICell[,] cells)

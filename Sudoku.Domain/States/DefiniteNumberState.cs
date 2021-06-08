@@ -14,9 +14,9 @@ namespace Sudoku.Domain.States
             State = EditorState.DefinitiveNumbers;
         }
 
-        public bool Place(Point point, int number)
+        public void Place(Point point, int number)
         {
-            return _game.Grid.Place(point, number, false);
+            _game.Grid.Place(point, number, false);
         }
 
         public void SetState()

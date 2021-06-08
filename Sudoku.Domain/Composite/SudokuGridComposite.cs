@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Domain.Composite
@@ -8,14 +7,22 @@ namespace Sudoku.Domain.Composite
     {
         private readonly Rectangle _rect;
         
-        public SudokuGridComposite(Rectangle rect, IEnumerable<IGridComponent> children) : base(children)
+        public SudokuGridComposite(Rectangle rect, IGridComponent[] children) : base(children)
         {
             _rect = rect;
         }
         
-        public override bool Place(Point point, int number, bool isAuxiliary)
+        public override bool Check(Point point, int number)
         {
-            return !_rect.Contains(point) || base.Place(point, number, isAuxiliary);
+            return !_rect.Contains(point) || base.Check(point, number);
+        }
+        
+        public override void Place(Point point, int number, bool isAuxiliary)
+        {
+            if (_rect.Contains(point))
+            {
+                base.Place(point, number, isAuxiliary);
+            }
         }
     }
 }

@@ -19,36 +19,29 @@ namespace Sudoku.Domain.Composite
             Auxiliary = new int[totalAuxiliary];
         }
 
-        public bool Check(Point point, int number, bool match)
+        public bool Check(Point point, int number)
         {
-            if (!match)
-            {
-                return _point != point && Definite == number;
-            }
-         
-            return (_point.X == point.X || _point.Y == point.Y) && Definite == number;
+            return !((_point.X == point.X || _point.Y == point.Y) && Definite == number);
         }
-        
-        public bool Place(Point point, int number, bool isAuxiliary)
+
+        public void Place(Point point, int number, bool isAuxiliary)
         {
             if (_point != point)
             {
-                return isAuxiliary || !Check(point, number, true);
+                return;
             }
 
             if (isAuxiliary)
             {
-                if (Definite == 0)
-                {
-                    Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
-                }
+                if (Definite != 0) 
+                    return;
+                
+                Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
             }
             else
             {
                 Definite = Definite == number ? 0 : number;
             }
-            
-            return true;
         }
 
         public void Layout(ICell[,] cells)

@@ -12,7 +12,7 @@ namespace Sudoku.Data.Factories
 
         public JigsawFactory()
         {
-            _gridBuilder = new GridBuilder();
+            _gridBuilder = new GridBuilder(0);
         }
 
         public (int, IGridComponent) Create(IEnumerable<string> lines)
@@ -25,7 +25,7 @@ namespace Sudoku.Data.Factories
             var subGrids = new List<GridBuilder>();
             for (var i = 0; i < length; i++)
             {
-                subGrids.Add(sudoku.AddSubGrid(i));
+                subGrids.Add(sudoku.AddGrid(i));
             }
 
             for (var i = 0; i < parts.Length; i++)
