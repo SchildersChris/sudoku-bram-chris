@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Xml;
 using Sudoku.Common.Extensions;
 using Sudoku.Domain.Composite.Interfaces;
 
@@ -8,6 +7,7 @@ namespace Sudoku.Domain.Visitors
 {
     public class BackTrackingSolverVisitor : ISolverVisitor
     {
+        // Todo: @Bram Get this number from Game 
         private const int Number = 9;
 
         public void Visit(GameElement game)
@@ -31,7 +31,7 @@ namespace Sudoku.Domain.Visitors
                     continue;
                 }
 
-                // Console.WriteLine($"Solving: {p.ToString()}, Number: {i}");
+                Console.WriteLine($"Solving: {p.ToString()}, Number: {i}");
                 
                 game.Grid.Place(p, i, false);
                 if (Solve(game))
