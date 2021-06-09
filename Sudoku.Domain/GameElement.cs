@@ -46,7 +46,7 @@ namespace Sudoku.Domain
                 return true;
             }
             
-            return Grid.Contains(point, number, cell.GridNumber) &&  Grid.Check(point, number);
+            return Grid.Contains(point, number, cell.GridNumber) && Grid.Check(point, number);
         }
 
         public void ToggleState()

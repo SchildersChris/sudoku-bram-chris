@@ -43,8 +43,10 @@ namespace Sudoku.Domain.Composite
 
             if (isAuxiliary)
             {
-                if (Definite != 0) 
+                if (Definite != 0)
+                {
                     return;
+                }
                 
                 Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
             }

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Drawing;
 using Sudoku.Common.Extensions;
 using Sudoku.Domain;
-using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Data.Factories
 {
     public abstract class BaseRegularFactory : ISudokuFactory
     {
         private readonly GridBuilder _gridBuilder;
+        private int _subGridNumber;
 
         protected BaseRegularFactory()
         {
             _gridBuilder = new GridBuilder(0);
+            _subGridNumber = 0;
         }
 
         protected abstract (int numbers, int length) Construct(IEnumerable<string> lines);
@@ -27,7 +28,7 @@ namespace Sudoku.Data.Factories
             var subGrids = new List<GridBuilder>();
             for (var i = 0; i < length; i++)
             {
-                subGrids.Add(sudoku.AddGrid(i));
+                subGrids.Add(sudoku.AddGrid(_subGridNumber++));
             }
 
             for (var y = 0; y < length; y++)

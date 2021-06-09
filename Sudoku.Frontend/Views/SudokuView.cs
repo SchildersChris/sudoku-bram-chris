@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Sudoku.Common.Extensions;
 using Sudoku.Frontend.Models;
 
 namespace Sudoku.Frontend.Views
@@ -22,14 +23,14 @@ namespace Sudoku.Frontend.Views
             Console.SetCursorPosition(0, 2);
             Console.CursorVisible = false;
 
-            var width = _model.Cells.GetLength(1);
-            var height = _model.Cells.GetLength(0);
-
+            var width = _model.Cells.GetWidth();
+            var height = _model.Cells.GetHeight();
+            
             for (var y = 0; y < height; y++)
             {
                 for (var x = 0; x < width; x++)
                 {
-                    var cell = _model.Cells[y, x];
+                    var cell = _model.Cells.Get(x, y);
                     Console.Write(cell?.ToString() ?? "|");
                 }
 

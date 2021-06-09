@@ -42,7 +42,7 @@ namespace Sudoku.Frontend.Models
 
         public override string ToString()
         {
-            var val = Definite != 0 ? Definite.ToString() : " ";
+            var val = Definite != 0 ? Definite.ToString() : ".";
             if (_foreground.HasValue)
             {
                 val = val.Pastel(_foreground.Value);

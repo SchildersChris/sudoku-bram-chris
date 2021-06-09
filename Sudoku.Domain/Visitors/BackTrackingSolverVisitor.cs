@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using Sudoku.Common.Extensions;
 using Sudoku.Domain.Composite.Interfaces;
 
@@ -27,15 +26,15 @@ namespace Sudoku.Domain.Visitors
                 {
                     continue;
                 }
-
-                Console.WriteLine($"Solving: {p.ToString()}, Number: {i}");
+                
+                // Console.WriteLine($"Solving: {p.ToString()}, Number: {i}");
                 
                 game.Grid.Place(p, i, false);
                 if (Solve(game))
                 {
                     return true;
                 }
-                    
+
                 game.Grid.Place(p, 0, false);
             }
             

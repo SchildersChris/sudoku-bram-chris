@@ -10,7 +10,7 @@ namespace Sudoku.Domain.Composite.Interfaces
         /// <param name="point">Original point coordinate</param>
         /// <param name="number">Number to check</param>
         /// <param name="gridNumber">Grid number to check</param>
-        /// <returns></returns>
+        /// <returns>True if grid contains the number, otherwise false</returns>
         bool Contains(Point point, int number, int gridNumber);
         
         /// <summary>
