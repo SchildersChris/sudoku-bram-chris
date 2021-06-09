@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using Sudoku.Common.Extensions;
 using Sudoku.Domain.Composite.Interfaces;
 
@@ -39,19 +38,22 @@ namespace Sudoku.Domain.Visitors
             do
             {
                 found = false;
-                foreach (var group in groups)
+                foreach (var (_, value) in groups)
                 {
                     for (var i = 1; i <= game.Numbers; i++)
                     {
                         var any = false;
-                        foreach (var x in @group.Value)
+                        // ReSharper disable once ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+                        foreach (var x in value)
                         {
-                            if (x.Item2.Definite == i)
+                            if (x.Item2.Definite != i)
                             {
-                                any = true;
-                                break;
+                                continue;
                             }
+                            any = true;
+                            break;
                         }
+                        
                         if (any)
                         {
                             continue;
@@ -59,9 +61,9 @@ namespace Sudoku.Domain.Visitors
 
                         var solutions = 0;
                         var idx = 0;
-                        for (var j = 0; j < group.Value.Count; j++)
+                        for (var j = 0; j < value.Count; j++)
                         {
-                            var (p, c) = group.Value[j];
+                            var (p, c) = value[j];
                             if (c.Definite != 0 || !game.Validate(p, i))
                             {
                                 continue;
@@ -81,7 +83,7 @@ namespace Sudoku.Domain.Visitors
                         }
 
                         found = true;
-                        game.Grid.Place(@group.Value[idx].Item1, i, false);
+                        game.Grid.Place(value[idx].Item1, i, false);
                     }
                 }
             } while (!found);
