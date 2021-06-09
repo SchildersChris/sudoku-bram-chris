@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Sudoku.Common.Extensions;
@@ -11,35 +10,8 @@ namespace Sudoku.Domain.Visitors
     {
         public void Visit(GameElement game)
         {
-            Solve2(game);
-        }
+            ClearErrors(game);
 
-        private static bool Solve(GameElement game)
-        {
-            var (p, s) = FindPoint(game);
-            if (p == null)
-            {
-                return true;
-            }
-            
-            game.Grid.Place(p.Value, s, false);
-
-            Console.WriteLine($"Solving: {p.ToString()}, Number: {s}");
-            
-            if (Solve(game))
-            {
-                return true;
-            }
-            
-            game.Grid.Place(p.Value, 0, false);
-        
-            
-            return false;
-        }
-
-
-        private static void Solve2(GameElement game)
-        {
             var groups = new Dictionary<int, List<(Point, ICell)>>();
 
             var cells = game.Cells;
@@ -56,66 +28,63 @@ namespace Sudoku.Domain.Visitors
                     var n = c.GridNumber;
                     if (!groups.ContainsKey(n))
                     {
-                       groups.Add(n, new List<(Point, ICell)>()); 
+                        groups.Add(n, new List<(Point, ICell)>());
                     }
-                    
+
                     groups[n].Add((new Point(x, y), c));
                 }
             }
-            
+
             var found = false;
             do
             {
+                found = false;
                 foreach (var group in groups)
                 {
-                    foreach (var (p, c) in group.Value)
+                    for (var i = 1; i <= game.Numbers; i++)
                     {
-                        if (c.Definite == 0)
+                        var any = false;
+                        foreach (var x in @group.Value)
                         {
-                            // c.Definite.
+                            if (x.Item2.Definite == i)
+                            {
+                                any = true;
+                                break;
+                            }
                         }
+                        if (any)
+                        {
+                            continue;
+                        }
+
+                        var solutions = 0;
+                        var idx = 0;
+                        for (var j = 0; j < group.Value.Count; j++)
+                        {
+                            var (p, c) = group.Value[j];
+                            if (c.Definite != 0 || !game.Validate(p, i))
+                            {
+                                continue;
+                            }
+
+                            solutions++;
+                            idx = j;
+                            if (solutions > 1)
+                            {
+                                break;
+                            }
+                        }
+
+                        if (solutions != 1)
+                        {
+                            continue;
+                        }
+
+                        found = true;
+                        game.Grid.Place(@group.Value[idx].Item1, i, false);
                     }
                 }
             } while (!found);
-
-
-
-
-
-            // var found = false;
-            // do
-            // {
-            //     var cells = game.Cells;
-            //     for (var y = 0; y < cells.GetHeight(); y++)
-            //     {
-            //         for (var x = 0; x < cells.GetWidth(); x++)
-            //         {
-            //             // Check for empty cell
-            //             var c = cells.Get(x, y);
-            //             if (game.Errors.Get(x, y) != true && c is not {Definite: 0})
-            //             {
-            //                 continue;
-            //             }
-            //             found = true;
-            //             
-            //             
-            //         }
-            //     }
-            // } while (found);
-        }
-
-        
-        private static void CheckBox(GameElement game, Point point)
-        {
-            var cells = game.Cells;
-            for (var y = 0; y < cells.GetHeight(); y++)
-            {
-                for (var x = 0; x < cells.GetWidth(); x++)
-                {
-                                
-                }
-                            
-            }
         }
 
         private static void ClearErrors(GameElement game)
@@ -130,47 +99,6 @@ namespace Sudoku.Domain.Visitors
                     }
                 }
             }
-        }
-        
-        private static (Point?, int) FindPoint(GameElement game)
-        {
-            for (var y = 0; y < game.Errors.GetHeight(); y++)
-            {
-                for (var x = 0; x < game.Errors.GetWidth(); x++)
-                {
-                    // Check empty
-                    var c = game.Cells.Get(x, y);
-                    if (game.Errors.Get(x, y) != true && c is not { Definite: 0 })
-                    {
-                        continue;
-                    }
-                    
-                    // Empty
-                    var p = new Point(x, y);
-
-                    var s = game.Numbers;
-                    var n = 0;
-                    for (var i = 1; i <= game.Numbers; i++)
-                    {
-                        if (!game.Validate(p, i))
-                        {
-                            s--;
-                        }
-                        else
-                        {
-                            n = i;
-                        }
-                    }
-                    
-                    if (s == 1)
-                    {
-                        return (p, n);
-                    }
-                    
-                }
-            }
-            
-            return (null, 0);
         }
     }
 }
