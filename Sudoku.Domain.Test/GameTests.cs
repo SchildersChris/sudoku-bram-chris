@@ -80,7 +80,7 @@ namespace Sudoku.Domain.Test
             game.Place(new Point(x, y), number);
             
             // Assert
-            Assert.False(game.Errors.Get(x, y));
+            Assert.False(game.Cells.Get(x, y).Error);
             Assert.Equal(number, game.Cells.Get(x, y).Definite);
         }
 
@@ -95,8 +95,8 @@ namespace Sudoku.Domain.Test
             game.Place(new Point(4, 4), 6);
             
             // Assert
-            Assert.False(game.Errors.Get(5, 4));
-            Assert.True(game.Errors.Get(4, 4));
+            Assert.False(game.Cells.Get(5, 4).Error);
+            Assert.True(game.Cells.Get(4, 4).Error);
             Assert.Equal(6, game.Cells.Get(5, 4).Definite);
             Assert.Equal(6, game.Cells.Get(4, 4).Definite);
         }
@@ -112,8 +112,8 @@ namespace Sudoku.Domain.Test
             game.Place(new Point(7, 4), 6);
             
             // Assert
-            Assert.False(game.Errors.Get(1, 4));
-            Assert.True(game.Errors.Get(7, 4));
+            Assert.False(game.Cells.Get(1, 4).Error);
+            Assert.True(game.Cells.Get(7, 4).Error);
             Assert.Equal(6, game.Cells.Get(1, 4).Definite);
             Assert.Equal(6, game.Cells.Get(7, 4).Definite);
         }
@@ -143,7 +143,7 @@ namespace Sudoku.Domain.Test
             game.Place(new Point(x, y), number);
             
             // Assert
-            Assert.Null(game.Errors.Get(x, y));
+            Assert.Null(game.Cells.Get(x, y).Error);
             Assert.Equal(number, game.Cells.Get(x, y).Auxiliary[number - 1]);
         }
         
@@ -168,7 +168,7 @@ namespace Sudoku.Domain.Test
             game.Place(new Point(x, y), replace);
             
             // Assert
-            Assert.False(game.Errors.Get(x, y));
+            Assert.False(game.Cells.Get(x, y).Error);
             Assert.Equal(replace, game.Cells.Get(x, y).Definite);
         }
 
@@ -193,7 +193,7 @@ namespace Sudoku.Domain.Test
             game.Place(new Point(x, y), number);
             
             // Assert
-            Assert.False(game.Errors.Get(x, y));
+            Assert.False(game.Cells.Get(x, y).Error);
             Assert.Equal(0, game.Cells.Get(x, y).Definite);
         }
         
@@ -222,7 +222,7 @@ namespace Sudoku.Domain.Test
             game.Place(new Point(x, y), number);
             
             // Assert
-            Assert.Null(game.Errors.Get(x, y));
+            Assert.Null(game.Cells.Get(x, y));
             Assert.Equal(0, game.Cells.Get(x, y).Auxiliary[number - 1]);
         }
     }

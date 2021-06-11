@@ -6,12 +6,12 @@ namespace Sudoku.Domain.Composite
     public class GridComposite : IGridComponent
     {
         private readonly IGridComponent[] _children;
-        
+
         public GridComposite(IGridComponent[] children)
         {
             _children = children;
         }
-        
+
         public virtual bool Contains(Point point, int number, int gridNumber)
         {
             // ReSharper disable once LoopCanBeConvertedToQuery
@@ -22,7 +22,7 @@ namespace Sudoku.Domain.Composite
                     return false;
                 }
             }
-            
+
             return true;
         }
 
@@ -36,7 +36,7 @@ namespace Sudoku.Domain.Composite
                     return false;
                 }
             }
-            
+
             return true;
         }
 
@@ -47,7 +47,15 @@ namespace Sudoku.Domain.Composite
                 c.Place(point, number, isAuxiliary);
             }
         }
-        
+
+        public void SetError(Point point, bool? value)
+        {
+            foreach (var c in _children)
+            {
+                c.SetError(point, value);
+            }
+        }
+
         public virtual void Layout(ICell[,] cells)
         {
             foreach (var c in _children)

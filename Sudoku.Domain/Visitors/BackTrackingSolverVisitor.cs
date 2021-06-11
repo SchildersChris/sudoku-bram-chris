@@ -13,7 +13,7 @@ namespace Sudoku.Domain.Visitors
 
         private static bool Solve(GameElement game)
         {
-            var empty = FindEmpty(game.Errors, game.Cells);
+            var empty = FindEmpty(game.Cells);
             if (empty == null)
             {
                 return true;
@@ -42,14 +42,14 @@ namespace Sudoku.Domain.Visitors
         }
         
         
-        private static Point? FindEmpty(bool?[,] errors, ICell[,] cells)
+        private static Point? FindEmpty(ICell[,] cells)
         {
-            for (var y = 0; y < errors.GetHeight(); y++)
+            for (var y = 0; y < cells.GetHeight(); y++)
             {
-                for (var x = 0; x < errors.GetWidth(); x++)
+                for (var x = 0; x < cells.GetWidth(); x++)
                 {
                     var c = cells.Get(x, y);
-                    if (errors.Get(x, y) == true || c is { Definite: 0 })
+                    if (c != null && (c.Error == true || c.Definite == 0))
                     {
                         return new Point(x, y);
                     }

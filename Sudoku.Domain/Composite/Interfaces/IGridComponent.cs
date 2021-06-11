@@ -29,6 +29,13 @@ namespace Sudoku.Domain.Composite.Interfaces
         /// <param name="number">Number to place</param>
         /// <param name="isAuxiliary">Whether the placement is a definite number or auxiliary number</param>
         void Place(Point point, int number, bool isAuxiliary);
+
+        /// <summary>
+        /// Sets error for a certain cell
+        /// </summary>
+        /// <param name="point">Point coordinate to set</param>
+        /// <param name="value">Value of error</param>
+        void SetError(Point point, bool? value);
         
         /// <summary>
         /// This method will layout the grid within a readonly 2d array

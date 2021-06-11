@@ -9,7 +9,6 @@ namespace Sudoku.Domain
     {
         EditorState State { get; }
         ICell[,] Cells { get; }
-        bool?[,] Errors { get; }
         void Place(Point point, int number);
         void ToggleState();
         void Accept(ISolverVisitor visitor);

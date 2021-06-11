@@ -13,7 +13,6 @@ namespace Sudoku.Domain
         private IEditorState _currentState;
         public EditorState State => _currentState.State;
         public ICell[,] Cells { get; }
-        public bool?[,] Errors { get;  }
         public IGridComponent Grid { get; }
         public int Numbers { get; }
 
@@ -21,7 +20,6 @@ namespace Sudoku.Domain
         {
             _currentState = new DefiniteNumberState(this);
             Cells = new ICell[length, length];
-            Errors = new bool?[length, length];
             
             Grid = grid;
             Grid.Layout(Cells);

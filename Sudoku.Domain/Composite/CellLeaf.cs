@@ -10,6 +10,7 @@ namespace Sudoku.Domain.Composite
         public int GridNumber { get; }
         public int Definite { get; private set; }
         public int[] Auxiliary { get; }
+        public bool? Error { get; private set; }
 
         public CellLeaf(Point point, int gridNumber, int totalAuxiliary, int number)
         {
@@ -30,7 +31,7 @@ namespace Sudoku.Domain.Composite
             {
                 return true;
             }
-            
+
             return !((_point.X == point.X || _point.Y == point.Y) && Definite == number);
         }
 
@@ -47,12 +48,20 @@ namespace Sudoku.Domain.Composite
                 {
                     return;
                 }
-                
+
                 Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
             }
             else
             {
                 Definite = Definite == number ? 0 : number;
+            }
+        }
+
+        public void SetError(Point point, bool? value)
+        {
+            if (_point == point)
+            {
+                Error = value;
             }
         }
 

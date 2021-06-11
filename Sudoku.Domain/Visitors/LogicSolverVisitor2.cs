@@ -29,9 +29,9 @@ namespace Sudoku.Domain.Visitors
 
         private static (Point?, int) FindPoint(GameElement game)
         {
-            for (var y = 0; y < game.Errors.GetHeight(); y++)
+            for (var y = 0; y < game.Cells.GetHeight(); y++)
             {
-                for (var x = 0; x < game.Errors.GetWidth(); x++)
+                for (var x = 0; x < game.Cells.GetWidth(); x++)
                 {
                     // Check empty
                     var c = game.Cells.Get(x, y);

@@ -91,11 +91,12 @@ namespace Sudoku.Domain.Visitors
 
         private static void ClearErrors(GameElement game)
         {
-            for (var y = 0; y < game.Errors.GetHeight(); y++)
+            for (var y = 0; y < game.Cells.GetHeight(); y++)
             {
-                for (var x = 0; x < game.Errors.GetWidth(); x++)
+                for (var x = 0; x < game.Cells.GetWidth(); x++)
                 {
-                    if (game.Errors.Get(x, y) == true)
+                    var c = game.Cells.Get(x, y);
+                    if (c != null && c.Error == true)
                     {
                         game.Grid.Place(new Point(x, y), 0, false);
                     }

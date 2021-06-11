@@ -18,7 +18,7 @@ namespace Sudoku.Domain.States
         public void Place(Point point, int number)
         {
             _game.Grid.Place(point, number, false);
-            _game.Errors.Set(point, !_game.Validate(point, number));
+            _game.Grid.SetError(point, !_game.Validate(point, number));
         }
 
         public void SetState()
