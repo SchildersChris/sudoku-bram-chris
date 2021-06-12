@@ -53,7 +53,7 @@ namespace Sudoku.Frontend.Models
                 val = val.PastelBg(_background.Value);
             }
 
-            return val;
+            return $"{val}";
         }
     }
 }
