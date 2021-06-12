@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.Text;
+using Pastel;
 using Sudoku.Common.Extensions;
 using Sudoku.Frontend.Models;
 
@@ -53,7 +55,7 @@ namespace Sudoku.Frontend.Views
                        _model.Cells.Get(x + 1, y) != null && 
                        c.GridNumber != _model.Cells.Get(x + 1, y).GridNumber)
                    {
-                       buffer.Set(x2 + 1, y2, "|");
+                       buffer.Set(x2 + 1, y2, "|".Pastel(Color.OrangeRed));
                    }
             
                    // Check for vertical border
@@ -61,7 +63,7 @@ namespace Sudoku.Frontend.Views
                        _model.Cells.Get(x, y + 1) != null &&
                        c.GridNumber != _model.Cells.Get(x, y + 1).GridNumber)
                    {
-                       buffer.Set(x2, y2 + 1, "-");
+                       buffer.Set(x2, y2 + 1, "-".Pastel(Color.OrangeRed));
                    }
                 }
             }
@@ -74,7 +76,6 @@ namespace Sudoku.Frontend.Views
                 }
                 Console.Write('\n');
             }
-            
             
             // // TODO: From this point remove old printing
             // Console.WriteLine("\n");

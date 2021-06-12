@@ -73,7 +73,7 @@ namespace Sudoku.Domain.Composite
             }
 
             var c = cells.Get(_point);
-            if (c == null || c.Definite == 0)
+            if (c == null || c.Definite == 0 && Definite != 0)
             {
                 cells.Set(_point, this);
             }
