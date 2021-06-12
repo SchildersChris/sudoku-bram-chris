@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Domain.Composite
@@ -15,24 +14,12 @@ namespace Sudoku.Domain.Composite
         
         public override bool Contains(Point point, int number, int gridNumber)
         {
-            
-            if (!_rect.Contains(point))
-            {
-                return true;
-            }
-            // Console.WriteLine($"Rect: { _rect.ToString() }, Point: {point.ToString()}, Number: {number}, GridNumber: {gridNumber}" );
-
-            return base.Contains(point, number, gridNumber);
+            return !_rect.Contains(point) || base.Contains(point, number, gridNumber);
         }
         
         public override bool Check(Point point, int number)
         {
-            if (!_rect.Contains(point))
-            {
-                return true;
-            }
-            
-            return base.Check(point, number);
+            return !_rect.Contains(point) || base.Check(point, number);
         }
         
         public override void Place(Point point, int number, bool isAuxiliary)
