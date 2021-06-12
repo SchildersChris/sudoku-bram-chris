@@ -140,11 +140,11 @@ namespace Sudoku.Frontend.Views
                     else if (cell.Definite != 0)
                     {
                         val = idx == cell.Definite - 1 ? cell.Definite.ToString() : " ";
-                        val = cell.Error == true ? val.Pastel(Color.White).PastelBg(Color.Red) : val.Pastel(Color.LightYellow);
+                        val = cell.Error == true ? val.Pastel(Color.White).PastelBg(Color.Red) : val.Pastel(Color.Black).PastelBg(Color.LightYellow);
                     }
                     else
                     {
-                        val = (cell.Auxiliary[idx] + 1).ToString();
+                        val = cell.Auxiliary[idx] != 0 ? cell.Auxiliary[idx].ToString() : ".";
                     }
 
                     if (drawCursor)
