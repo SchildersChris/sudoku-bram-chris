@@ -1,37 +1,61 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Drawing;
 using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Domain.Composite
 {
     public class GridComposite : IGridComponent
     {
-        private readonly IEnumerable<IGridComponent> _children;
-        
-        public GridComposite(IEnumerable<IGridComponent> children)
+        private readonly IGridComponent[] _children;
+
+        public GridComposite(IGridComponent[] children)
         {
             _children = children;
         }
-        
-        public virtual bool CheckInverted(Point point, int number)
-        {
-            return _children.Any(c => c.CheckInverted(point, number));
-        }
 
-        public virtual bool Place(Point point, int number, bool temporary)
+        public virtual bool Contains(Point point, int number, int gridNumber)
         {
-            var place = true;
+            // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var c in _children)
             {
-                if (!c.Place(point, number, temporary))
+                if (!c.Contains(point, number, gridNumber))
                 {
-                    place = false;
+                    return false;
                 }
             }
-            return place;
+
+            return true;
         }
-        
+
+        public virtual bool Check(Point point, int number)
+        {
+            // ReSharper disable once LoopCanBeConvertedToQuery
+            foreach (var c in _children)
+            {
+                if (!c.Check(point, number))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public virtual void Place(Point point, int number, bool isAuxiliary)
+        {
+            foreach (var c in _children)
+            {
+                c.Place(point, number, isAuxiliary);
+            }
+        }
+
+        public void SetError(Point point, bool? value)
+        {
+            foreach (var c in _children)
+            {
+                c.SetError(point, value);
+            }
+        }
+
         public virtual void Layout(ICell[,] cells)
         {
             foreach (var c in _children)

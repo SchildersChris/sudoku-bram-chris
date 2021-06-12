@@ -6,7 +6,7 @@ namespace Sudoku.Domain.States
     public interface IEditorState
     {
         public EditorState State { get; }
-        public bool Place(Point point, int number);
+        public void Place(Point point, int number);
         public void SetState();
     }
 }

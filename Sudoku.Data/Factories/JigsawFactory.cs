@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Sudoku.Domain;
 using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Data.Factories
@@ -12,10 +13,10 @@ namespace Sudoku.Data.Factories
 
         public JigsawFactory()
         {
-            _gridBuilder = new GridBuilder();
+            _gridBuilder = new GridBuilder(0);
         }
 
-        public (int, IGridComponent) Create(IEnumerable<string> lines)
+        public IGameElement Create(IEnumerable<string> lines)
         {
             var line = lines.First();
             var parts = line.Split("=").Skip(1).ToArray();
@@ -25,7 +26,7 @@ namespace Sudoku.Data.Factories
             var subGrids = new List<GridBuilder>();
             for (var i = 0; i < length; i++)
             {
-                subGrids.Add(sudoku.AddSubGrid(i));
+                subGrids.Add(sudoku.AddGrid(i));
             }
 
             for (var i = 0; i < parts.Length; i++)
@@ -40,7 +41,7 @@ namespace Sudoku.Data.Factories
                 );
             }
 
-            return (length, _gridBuilder.Build());
+            return new GameElement(length, length, _gridBuilder.Build());
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using Sudoku.Domain;
 using Sudoku.Domain.Enums;
-using Sudoku.Domain.Solvers;
+using Sudoku.Domain.Visitors;
 using Sudoku.Frontend.Models;
 using Sudoku.Frontend.Views;
 
@@ -13,6 +14,7 @@ namespace Sudoku.Frontend.Controllers
         private readonly SudokuModel _model;
         private readonly IGameElement _game;
         private readonly ISolverVisitor _solver;
+        private readonly ISolverVisitor _solver2;
 
         public SudokuController(IGameElement game, bool simpleDisplay)
         {
@@ -21,13 +23,14 @@ namespace Sudoku.Frontend.Controllers
                 game.ToggleState();
             }
 
-            _model = new SudokuModel(game.Cells)
-            {
-                State = game.State
-            };
+            _model = new SudokuModel(game.Numbers, game.Cells, game.State);
             _view = new SudokuView(_model);
+            
             _game = game;
-            _solver = new BackTrackingSolverVisitor();
+            _solver = new BoxLogicSolverVisitor();
+            _solver2 = new BackTrackingSolverVisitor();
+            
+            _view.Update();
         }
 
         public void Update(ConsoleKey key)
@@ -40,11 +43,40 @@ namespace Sudoku.Frontend.Controllers
                     _model.State = _game.State;
                     break;
                 }
-                // Todo: Do actions 
+                case ConsoleKey.S:
+                {
+                    _game.Accept(_solver);
+                    _game.Accept(_solver2);
+                    break;
+                }
+                case ConsoleKey.UpArrow:
+                    _model.Move(new Size(0, -1));
+                    break;
+                case ConsoleKey.DownArrow:
+                    _model.Move(new Size(0, 1));
+                    break;
+                case ConsoleKey.LeftArrow:
+                    _model.Move(new Size(-1, 0));
+                    break;
+                case ConsoleKey.RightArrow:
+                    _model.Move(new Size(1, 0));
+                    break;
+                case ConsoleKey.D1:
+                case ConsoleKey.D2:
+                case ConsoleKey.D3:
+                case ConsoleKey.D4:
+                case ConsoleKey.D5:
+                case ConsoleKey.D6:
+                case ConsoleKey.D7:
+                case ConsoleKey.D8:
+                case ConsoleKey.D9:
+                {
+                    _game.Place(_model.Position, (int) key - (int) ConsoleKey.D0);
+                    break;
+                }
+                default: return;
             }
-
-            // Todo: Update model
-
+            
             _view.Update();
         }
     }

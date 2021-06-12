@@ -1,4 +1,4 @@
-﻿namespace Sudoku.Domain.Solvers
+﻿namespace Sudoku.Domain.Visitors
 {
     public interface ISolverVisitor
     {

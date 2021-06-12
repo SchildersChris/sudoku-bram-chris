@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Sudoku.Common.Extensions;
-using Sudoku.Domain.Composite.Interfaces;
+using Sudoku.Domain;
 
 namespace Sudoku.Data.Factories
 {
     public abstract class BaseRegularFactory : ISudokuFactory
     {
         private readonly GridBuilder _gridBuilder;
+        private int _subGridNumber;
 
         protected BaseRegularFactory()
         {
-            _gridBuilder = new GridBuilder();
+            _gridBuilder = new GridBuilder(0);
+            _subGridNumber = 0;
         }
 
-        protected abstract int Construct(IEnumerable<string> lines);
+        protected abstract (int numbers, int length) Construct(IEnumerable<string> lines);
 
         protected void AddSudoku(string line, int xStart, int yStart)
         {
@@ -26,7 +28,7 @@ namespace Sudoku.Data.Factories
             var subGrids = new List<GridBuilder>();
             for (var i = 0; i < length; i++)
             {
-                subGrids.Add(sudoku.AddSubGrid(i));
+                subGrids.Add(sudoku.AddGrid(_subGridNumber++));
             }
 
             for (var y = 0; y < length; y++)
@@ -34,10 +36,10 @@ namespace Sudoku.Data.Factories
                 for (var x = 0; x < length; x++)
                 {
                     var number = int.Parse(line[y * length + x].ToString());
-                    var yScale = y == 0 ? 0 : y / width;
-                    var xScale = x == 0 ? 0 : x / height;
+                    var yScale = y == 0 ? 0 : y / height;
+                    var xScale = x == 0 ? 0 : x / width;
 
-                    subGrids[yScale * width + xScale].AddCell(
+                    subGrids[yScale * height + xScale].AddCell(
                         new Point(x + xStart, y + yStart),
                         number
                     );
@@ -45,12 +47,10 @@ namespace Sudoku.Data.Factories
             }
         }
 
-        public (int, IGridComponent) Create(IEnumerable<string> lines)
+        public IGameElement Create(IEnumerable<string> lines)
         {
-            var length = Construct(lines);
-            var grid = _gridBuilder.Build();
-
-            return (length, grid);
+            var (numbers, length) = Construct(lines);
+            return new GameElement(numbers, length, _gridBuilder.Build());
         }
     }
 }

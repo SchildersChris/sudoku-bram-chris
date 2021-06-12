@@ -6,12 +6,13 @@ namespace Sudoku.Data.Factories
 {
     public class RegularFactory : BaseRegularFactory
     {
-        protected override int Construct(IEnumerable<string> lines)
+        protected override (int numbers, int length) Construct(IEnumerable<string> lines)
         {
             var line = lines.First();
             AddSudoku(line, 0, 0);
 
-            return (int) Math.Sqrt(line.Length);
+            var len = (int) Math.Sqrt(line.Length);
+            return (len, len);
         }
     }
 }

@@ -10,21 +10,21 @@ namespace Sudoku.Data
     public class GridBuilder
     {
         private readonly int _gridNumber;
-        private readonly Func<IEnumerable<IGridComponent>, IGridComponent> _builder;
+        private readonly Func<IGridComponent[], IGridComponent> _builder;
         private readonly List<Func<int, IGridComponent>> _leaves;
 
         private readonly List<GridBuilder> _builders;
 
-        public GridBuilder()
+        public GridBuilder(int gridNumber)
         {
-            _gridNumber = 0;
+            _gridNumber = gridNumber;
             _builder = children => new GridComposite(children);
             _leaves = new List<Func<int, IGridComponent>>();
             
             _builders = new List<GridBuilder>();
         }
     
-        private GridBuilder(int gridNumber, Func<IEnumerable<IGridComponent>, IGridComponent> builder)
+        private GridBuilder(int gridNumber, Func<IGridComponent[], IGridComponent> builder)
         {
             _gridNumber = gridNumber;
             _builder = builder;
@@ -43,11 +43,11 @@ namespace Sudoku.Data
             return builder;
         }
         
-        public GridBuilder AddSubGrid(int gridNumber)
+        public GridBuilder AddGrid(int gridNumber)
         {
             var builder = new GridBuilder(
                 gridNumber,
-                children => new SubGridComposite(children)
+                children => new GridComposite(children)
             );
             _builders.Add(builder);
             return builder;
@@ -63,7 +63,7 @@ namespace Sudoku.Data
             var grids = new List<IGridComponent>(_builders.Select(b => b.Build()));
             grids.AddRange(_leaves.Select(leaf => leaf(_gridNumber)));
 
-            return _builder(grids);
+            return _builder(grids.ToArray());
         }
     }
 }

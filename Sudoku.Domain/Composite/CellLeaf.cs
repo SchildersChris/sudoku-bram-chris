@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Sudoku.Common.Extensions;
 using Sudoku.Domain.Composite.Interfaces;
 
 namespace Sudoku.Domain.Composite
@@ -9,6 +10,7 @@ namespace Sudoku.Domain.Composite
         public int GridNumber { get; }
         public int Definite { get; private set; }
         public int[] Auxiliary { get; }
+        public bool? Error { get; private set; }
 
         public CellLeaf(Point point, int gridNumber, int totalAuxiliary, int number)
         {
@@ -18,40 +20,70 @@ namespace Sudoku.Domain.Composite
             Auxiliary = new int[totalAuxiliary];
         }
 
-        public bool CheckInverted(Point point, int number)
+        public bool Contains(Point point, int number, int gridNumber)
         {
-            return _point != point && Definite == number;
+            return !(_point != point && Definite == number && GridNumber == gridNumber);
         }
 
-        public bool Place(Point point, int number, bool temporary)
+        public bool Check(Point point, int number)
+        {
+            if (_point == point)
+            {
+                return true;
+            }
+
+            return !((_point.X == point.X || _point.Y == point.Y) && Definite == number);
+        }
+
+        public void Place(Point point, int number, bool isAuxiliary)
         {
             if (_point != point)
             {
-                return !((_point.X == point.X || _point.Y == point.Y) && Definite == number);
+                return;
             }
 
-            if (temporary)
+            if (isAuxiliary)
             {
-                if (Definite == 0)
+                if (Definite != 0)
                 {
-                    Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
+                    return;
                 }
+
+                Auxiliary[number - 1] = Auxiliary[number - 1] == number ? 0 : number;
             }
             else
             {
                 Definite = Definite == number ? 0 : number;
             }
-            return true;
+        }
+
+        public void SetError(Point point, bool? value)
+        {
+            if (_point != point)
+            {
+                return;
+            } 
+            
+            if (Definite == 0)
+            {
+                Error = null;
+                return;
+            }
+            
+            Error = value;
         }
 
         public void Layout(ICell[,] cells)
         {
-            if (_point.X >= cells.GetLength(1) || _point.Y >= cells.GetLength(0)) 
-                return;
-            
-            if (cells[_point.Y, _point.X] == null || cells[_point.Y, _point.X].Definite != 0)
+            if (!cells.Contains(_point))
             {
-                cells[_point.Y, _point.X] = this;
+                return;
+            }
+
+            var c = cells.Get(_point);
+            if (c == null || c.Definite == 0 && Definite != 0)
+            {
+                cells.Set(_point, this);
             }
         }
     }
