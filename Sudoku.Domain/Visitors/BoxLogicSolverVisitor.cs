@@ -86,7 +86,7 @@ namespace Sudoku.Domain.Visitors
                         game.Grid.Place(value[idx].Item1, i, false);
                     }
                 }
-            } while (!found);
+            } while (found);
         }
 
         private static void ClearErrors(GameElement game)
@@ -96,7 +96,7 @@ namespace Sudoku.Domain.Visitors
                 for (var x = 0; x < game.Cells.GetWidth(); x++)
                 {
                     var c = game.Cells.Get(x, y);
-                    if (c != null && c.Error == true)
+                    if (c is { Error: true })
                     {
                         game.Grid.Place(new Point(x, y), 0, false);
                     }

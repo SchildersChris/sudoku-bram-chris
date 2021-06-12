@@ -8,6 +8,18 @@ namespace Sudoku.Domain.Visitors
     {
         public void Visit(GameElement game)
         {
+            for (var y = 0; y < game.Cells.GetHeight(); y++)
+            {
+                for (var x = 0; x < game.Cells.GetWidth(); x++)
+                {
+                    var c = game.Cells.Get(x, y);
+                    if (c is { Error: true })
+                    {
+                        game.Grid.Place(new Point(x, y), 0, false);
+                    }
+                }
+            }
+
             Solve(game);
         }
 
@@ -40,8 +52,7 @@ namespace Sudoku.Domain.Visitors
             
             return false;
         }
-        
-        
+
         private static Point? FindEmpty(ICell[,] cells)
         {
             for (var y = 0; y < cells.GetHeight(); y++)
