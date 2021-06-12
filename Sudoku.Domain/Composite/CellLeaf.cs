@@ -59,10 +59,18 @@ namespace Sudoku.Domain.Composite
 
         public void SetError(Point point, bool? value)
         {
-            if (_point == point)
+            if (_point != point)
             {
-                Error = value;
+                return;
+            } 
+            
+            if (Definite == 0)
+            {
+                Error = null;
+                return;
             }
+            
+            Error = value;
         }
 
         public void Layout(ICell[,] cells)
