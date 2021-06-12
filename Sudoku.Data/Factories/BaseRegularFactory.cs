@@ -36,10 +36,10 @@ namespace Sudoku.Data.Factories
                 for (var x = 0; x < length; x++)
                 {
                     var number = int.Parse(line[y * length + x].ToString());
-                    var yScale = y == 0 ? 0 : y / width;
-                    var xScale = x == 0 ? 0 : x / height;
+                    var yScale = y == 0 ? 0 : y / height;
+                    var xScale = x == 0 ? 0 : x / width;
 
-                    subGrids[yScale * width + xScale].AddCell(
+                    subGrids[yScale * height + xScale].AddCell(
                         new Point(x + xStart, y + yStart),
                         number
                     );

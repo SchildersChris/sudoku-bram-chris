@@ -222,7 +222,7 @@ namespace Sudoku.Domain.Test
             game.Place(new Point(x, y), number);
             
             // Assert
-            Assert.Null(game.Cells.Get(x, y));
+            Assert.Null(game.Cells.Get(x, y).Error);
             Assert.Equal(0, game.Cells.Get(x, y).Auxiliary[number - 1]);
         }
     }

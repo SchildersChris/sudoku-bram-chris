@@ -6,8 +6,14 @@ namespace Sudoku.Common.Extensions
     {
         public static bool Contains<T>(this T[,] origin, Point point)
         {
-            return 0 <= point.Y && point.X < origin.GetWidth() && 
+            return 0 <= point.X && point.X < origin.GetWidth() && 
                    0 <= point.Y && point.Y < origin.GetHeight();
+        }
+        
+        public static bool Contains<T>(this T[,] origin, int x, int y)
+        {
+            return 0 <= x && x < origin.GetWidth() && 
+                   0 <= y && y < origin.GetHeight();
         }
 
         public static void Set<T>(this T[,] origin, Point point, T item)
