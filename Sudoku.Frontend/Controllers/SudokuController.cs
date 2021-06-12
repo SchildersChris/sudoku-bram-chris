@@ -23,10 +23,7 @@ namespace Sudoku.Frontend.Controllers
                 game.ToggleState();
             }
 
-            _model = new SudokuModel(game.Cells, game.State)
-            {
-                State = game.State
-            };
+            _model = new SudokuModel(game.Cells, game.State);
             _view = new SudokuView(_model);
             
             _game = game;
@@ -75,7 +72,6 @@ namespace Sudoku.Frontend.Controllers
                     _game.Place(_model.Position, (int) key - 48);
                     break;
                 }
-                // Todo: Do actions 
             }
             
             _view.Update();
