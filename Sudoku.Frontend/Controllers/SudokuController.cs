@@ -23,12 +23,14 @@ namespace Sudoku.Frontend.Controllers
                 game.ToggleState();
             }
 
-            _model = new SudokuModel(game.Cells, game.State);
+            _model = new SudokuModel(game.Numbers, game.Cells, game.State);
             _view = new SudokuView(_model);
             
             _game = game;
             _solver = new BoxLogicSolverVisitor();
             _solver2 = new BackTrackingSolverVisitor();
+            
+            _view.Update();
         }
 
         public void Update(ConsoleKey key)
@@ -72,6 +74,7 @@ namespace Sudoku.Frontend.Controllers
                     _game.Place(_model.Position, (int) key - (int) ConsoleKey.D0);
                     break;
                 }
+                default: return;
             }
             
             _view.Update();

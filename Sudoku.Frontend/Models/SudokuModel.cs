@@ -7,12 +7,14 @@ namespace Sudoku.Frontend.Models
 {
     public class SudokuModel
     {
+        public int Numbers { get; }
         public ICell[,] Cells { get; }
         public EditorState State { get; set; }
         public Point Position { get; private set; }
         
-        public SudokuModel(ICell[,] cells, EditorState state)
+        public SudokuModel(int numbers, ICell[,] cells, EditorState state)
         {
+            Numbers = numbers;
             Cells = cells;
             State = state;
             Position = new Point(0, 0);

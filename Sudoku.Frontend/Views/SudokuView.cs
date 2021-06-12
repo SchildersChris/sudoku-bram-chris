@@ -51,7 +51,7 @@ namespace Sudoku.Frontend.Views
             int col = 1, row = 1;
             if (_model.State == EditorState.AuxiliaryNumbers)
             {
-                 (col, row) = width.Factorize();
+                 (col, row) = _model.Numbers.Factorize();
             }
             
             var bufferHeight = height * row * 2 - 1;
@@ -69,11 +69,11 @@ namespace Sudoku.Frontend.Views
 
                     if (_model.State == EditorState.DefinitiveNumbers)
                     {
-                        WriteDefiniteCell(c, buffer, x2, y2);
+                        WriteDefiniteCell(c, buffer, x2, y2, _model.Position.X == x && _model.Position.Y == y);
                     }
                     else
                     {
-                        WriteAuxiliaryCell(c, buffer, x2, y2);
+                        WriteAuxiliaryCell(c, buffer, x2, y2, col, row, _model.Position.X == x && _model.Position.Y == y);
                     }
 
                     if (c == null)
@@ -96,19 +96,13 @@ namespace Sudoku.Frontend.Views
                     {
                         buffer.Set(x2, y2 + 1, "-".Pastel(Color.OrangeRed));
                     }
-
-                    // Selector background
-                    if (_model.Position.X == x && _model.Position.Y == y)
-                    {
-                        buffer.Set(x2, y2, buffer.Get(x2, y2).PastelBg(Color.DarkGray).Pastel(Color.Black));
-                    }
                 }
             }
             
             return buffer;
         }
         
-        private static void WriteDefiniteCell(ICell cell, string[,] buffer, int xStart, int yStart)
+        private static void WriteDefiniteCell(ICell cell, string[,] buffer, int xStart, int yStart, bool drawCursor)
         {
             if (cell == null)
             {
@@ -121,16 +115,45 @@ namespace Sudoku.Frontend.Views
             {
                 val = val.Pastel(Color.White).PastelBg(Color.Red);
             }
+
+            if (drawCursor)
+            {
+                val = val.PastelBg(Color.DarkGray).Pastel(Color.Black);
+            }
             
             buffer.Set(xStart, yStart, val);
         }
         
-        private static void WriteAuxiliaryCell(ICell cell, string[,] buffer, int xStart, int yStart)
+        private static void WriteAuxiliaryCell(ICell cell, string[,] buffer, int xStart, int yStart, int w, int h, bool drawCursor)
         {
-            var val = cell.Definite != 0 ? cell.Definite.ToString() : ".";
-            if (cell.Error == true)
+            for (var y = 0; y < h; y++)
             {
-                val = val.Pastel(Color.White).PastelBg(Color.Red);
+                for (var x = 0; x < w; x++)
+                {
+                    var idx = y * w + x;
+                    string val;
+
+                    if (cell == null)
+                    {
+                        val = " ";
+                    }
+                    else if (cell.Definite != 0)
+                    {
+                        val = idx == cell.Definite - 1 ? cell.Definite.ToString() : " ";
+                        val = cell.Error == true ? val.Pastel(Color.White).PastelBg(Color.Red) : val.Pastel(Color.LightYellow);
+                    }
+                    else
+                    {
+                        val = (cell.Auxiliary[idx] + 1).ToString();
+                    }
+
+                    if (drawCursor)
+                    {
+                        val = val.PastelBg(Color.DarkGray).Pastel(Color.Black);
+                    }
+
+                    buffer.Set(xStart + x, yStart + y, val);
+                }
             }
         }
     }

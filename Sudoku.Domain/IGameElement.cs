@@ -7,6 +7,7 @@ namespace Sudoku.Domain
 {
     public interface IGameElement
     {
+        int Numbers { get; }
         EditorState State { get; }
         ICell[,] Cells { get; }
         void Place(Point point, int number);

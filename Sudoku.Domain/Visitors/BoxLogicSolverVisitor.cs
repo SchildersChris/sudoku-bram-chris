@@ -96,7 +96,7 @@ namespace Sudoku.Domain.Visitors
                 for (var x = 0; x < game.Cells.GetWidth(); x++)
                 {
                     var c = game.Cells.Get(x, y);
-                    if (c is { Error: true })
+                    if (c is { Error: { } })
                     {
                         game.Grid.Place(new Point(x, y), 0, false);
                     }
