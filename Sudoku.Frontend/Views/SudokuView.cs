@@ -24,7 +24,7 @@ namespace Sudoku.Frontend.Views
         {
             Console.Clear();
             // Console.SetCursorPosition(0, 2);
-            // Console.CursorVisible = true;
+            Console.CursorVisible = false;
             
             var width = _model.Cells.GetWidth();
             var height = _model.Cells.GetHeight();
@@ -49,7 +49,7 @@ namespace Sudoku.Frontend.Views
                    }
                    
                    buffer.Set(x2, y2, c.ToString());
-                   
+
                    // Check for horizontal border
                    if (_model.Cells.Contains(x + 1, y) && 
                        _model.Cells.Get(x + 1, y) != null && 
@@ -65,6 +65,12 @@ namespace Sudoku.Frontend.Views
                    {
                        buffer.Set(x2, y2 + 1, "-".Pastel(Color.OrangeRed));
                    }
+
+                   // Selector background
+                   if (_model.Position.X == x && _model.Position.Y == y)
+                   {
+                       buffer.Set(x2, y2, buffer.Get(x2, y2).PastelBg(Color.DarkGray).Pastel(Color.Black));
+                   }
                 }
             }
             
@@ -76,26 +82,7 @@ namespace Sudoku.Frontend.Views
                 }
                 Console.Write('\n');
             }
-            
-            // // TODO: From this point remove old printing
-            // Console.WriteLine("\n");
-            // Console.WriteLine("\n");
-            // Console.WriteLine("\n");
-            // Console.WriteLine("\n");
-            // Console.WriteLine("\n");
-            Console.WriteLine("\n");
-            
-            for (var y = 0; y < height; y++)
-            {
-                for (var x = 0; x < width; x++)
-                {
-                    var cell = _model.Cells.Get(x, y);
-                    Console.Write(cell?.ToString() ?? " ");
-                }
-            
-                Console.Write('\n');
-            }
-            
+
             Console.WriteLine($"\nCurrent view mode: {_model.State.ToString()} ");
         }
     }

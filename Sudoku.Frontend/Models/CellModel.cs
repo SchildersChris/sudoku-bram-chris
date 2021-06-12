@@ -6,54 +6,26 @@ namespace Sudoku.Frontend.Models
 {
     public class CellModel
     {
-        private Color? _foreground;
-        private Color? _background;
+        private readonly ICell _cell;
 
-        private bool _faulty;
-        public bool Faulty
-        {
-            get => _faulty;
-            set
-            {
-                _faulty = value;
-                if (_faulty)
-                {
-                    _foreground = Color.White;
-                    _background = Color.Red;
-                }
-                else
-                {
-                    _foreground = null;
-                    _background = null;
-                }
-            }
-        }
-
-        public int GridNumber { get; }
-        public int Definite { get; }
-        public int[] Auxiliary { get; }
+        public int GridNumber => _cell.GridNumber;
+        public int Definite => _cell.Definite;
+        public int[] Auxiliary => _cell.Auxiliary;
 
         public CellModel(ICell cell)
         {
-            GridNumber = cell.GridNumber;
-            Definite = cell.Definite;
-            Auxiliary = cell.Auxiliary.Clone() as int[];
+            _cell = cell;
         }
 
         public override string ToString()
         {
             var val = Definite != 0 ? Definite.ToString() : ".";
-            if (_foreground.HasValue)
+            if (_cell.Error == true)
             {
-                val = val.Pastel(_foreground.Value);
+                val = val.Pastel(Color.White).PastelBg(Color.Red);
             }
-
-            if (_background.HasValue)
-            {
-                val = val.PastelBg(_background.Value);
-            }
-
-            return $"{val}";
+            
+            return val;
         }
     }
 }

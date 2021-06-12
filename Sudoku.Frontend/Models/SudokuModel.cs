@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Sudoku.Common.Extensions;
 using Sudoku.Domain.Composite.Interfaces;
 using Sudoku.Domain.Enums;
 
@@ -6,50 +7,39 @@ namespace Sudoku.Frontend.Models
 {
     public class SudokuModel
     {
-        private readonly Point _position;
+
         private readonly ICell[,] _cells;
         public CellModel[,] Cells { get; }
         public EditorState State { get; set; }
-
-        public SudokuModel(ICell[,] cells)
+        public Point Position { get; private set; }
+        
+        public SudokuModel(ICell[,] cells, EditorState state)
         {
             _cells = cells;
-            
-            var width = _cells.GetLength(1);
-            var height = _cells.GetLength(0);
-            Cells = new CellModel[height, width];
-            
-            UpdateCells();
-            
-            State = EditorState.DefinitiveNumbers;
-        }
-
-        public void UpdateCells()
-        {
-            var width = _cells.GetLength(1);
-            var height = _cells.GetLength(0);
-
-            for (var y = 0; y < height; y++)
+            Cells = new CellModel[_cells.GetHeight(), _cells.GetWidth()];
+            for (var y = 0; y < _cells.GetHeight(); y++)
             {
-                for (var x = 0; x < width; x++)
+                for (var x = 0; x < _cells.GetWidth(); x++)
                 {
-                    var cell = _cells[y, x];
+                    var cell = _cells.Get(x, y);
                     if (cell != null)
                     {
-                        Cells[y, x] = new CellModel(cell);
+                        Cells.Set(x, y, new CellModel(cell));
                     }
                 }
             }
+            
+            State = state;
+            Position = new Point(0, 0);
         }
-
-        void Move()
+        
+        public void Move(Size size)
         {
-            // Todo: move _position
-        }
-
-        void Place()
-        {
-            Cells[_position.Y, _position.X] = new CellModel(_cells[_position.X, _position.Y]);
+            var newPos = Position + size;
+            if (_cells.Contains(newPos) && _cells.Get(newPos) != null)
+            {
+                Position = newPos;
+            }
         }
     }
 }
