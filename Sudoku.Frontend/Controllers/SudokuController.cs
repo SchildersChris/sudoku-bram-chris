@@ -49,6 +49,11 @@ namespace Sudoku.Frontend.Controllers
                     _game.Accept(_solver2);
                     break;
                 }
+                case ConsoleKey.C:
+                {
+                    _model.ShowErrors = !_model.ShowErrors;
+                    break;
+                }
                 case ConsoleKey.UpArrow:
                     _model.Move(new Size(0, -1));
                     break;

@@ -193,7 +193,7 @@ namespace Sudoku.Domain.Test
             game.Place(new Point(x, y), number);
             
             // Assert
-            Assert.False(game.Cells.Get(x, y).Error);
+            Assert.Null(game.Cells.Get(x, y).Error);
             Assert.Equal(0, game.Cells.Get(x, y).Definite);
         }
         

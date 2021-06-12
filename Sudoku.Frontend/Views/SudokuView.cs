@@ -39,6 +39,7 @@ namespace Sudoku.Frontend.Views
             }
 
             Console.WriteLine($"\nCurrent view mode: {_model.State.ToString()} ");
+            Console.WriteLine($"\nShow errors: {_model.ShowErrors.ToString()} ");
         }
 
 
@@ -76,13 +77,13 @@ namespace Sudoku.Frontend.Views
                     {
                         y2 = y * 2;
                         x2 = x * 2;
-                        WriteDefiniteCell(c, buffer, x2, y2, _model.Position.X == x && _model.Position.Y == y);
+                        WriteDefiniteCell(c, buffer, x2, y2, _model.Position.X == x && _model.Position.Y == y, _model.ShowErrors);
                     }
                     else
                     {
                         y2 = y * row + y;
                         x2 = x * col + x;
-                        WriteAuxiliaryCell(c, buffer, x2, y2, col, row, _model.Position.X == x && _model.Position.Y == y);
+                        WriteAuxiliaryCell(c, buffer, x2, y2, col, row, _model.Position.X == x && _model.Position.Y == y, _model.ShowErrors);
                     }
 
                     if (c == null)
@@ -111,7 +112,7 @@ namespace Sudoku.Frontend.Views
             return buffer;
         }
         
-        private static void WriteDefiniteCell(ICell cell, string[,] buffer, int xStart, int yStart, bool drawCursor)
+        private static void WriteDefiniteCell(ICell cell, string[,] buffer, int xStart, int yStart, bool drawCursor, bool showErrors)
         {
             if (cell == null)
             {
@@ -120,7 +121,7 @@ namespace Sudoku.Frontend.Views
             }
 
             var val = cell.Definite != 0 ? cell.Definite.ToString() : ".";
-            if (cell.Error == true)
+            if (cell.Error == true && showErrors)
             {
                 val = val.Pastel(Color.White).PastelBg(Color.Red);
             }
@@ -133,7 +134,7 @@ namespace Sudoku.Frontend.Views
             buffer.Set(xStart, yStart, val);
         }
         
-        private static void WriteAuxiliaryCell(ICell cell, string[,] buffer, int xStart, int yStart, int w, int h, bool drawCursor)
+        private static void WriteAuxiliaryCell(ICell cell, string[,] buffer, int xStart, int yStart, int w, int h, bool drawCursor, bool showErrors)
         {
             for (var y = 0; y < h; y++)
             {
@@ -149,7 +150,7 @@ namespace Sudoku.Frontend.Views
                     else if (cell.Definite != 0)
                     {
                         val = idx == cell.Definite - 1 ? cell.Definite.ToString() : " ";
-                        val = cell.Error == true ? 
+                        val = cell.Error == true && showErrors ? 
                             val.Pastel(drawCursor ? Color.Black : Color.White).PastelBg(drawCursor ? Color.DarkRed : Color.Red) : 
                             val.Pastel(Color.Black).PastelBg(drawCursor ? Color.LightGray : Color.LightYellow);
                     }

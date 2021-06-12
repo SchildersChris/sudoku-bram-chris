@@ -11,6 +11,7 @@ namespace Sudoku.Frontend.Models
         public ICell[,] Cells { get; }
         public EditorState State { get; set; }
         public Point Position { get; private set; }
+        public bool ShowErrors { get; set; }
         
         public SudokuModel(int numbers, ICell[,] cells, EditorState state)
         {
