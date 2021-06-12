@@ -69,7 +69,7 @@ namespace Sudoku.Frontend.Controllers
                 case ConsoleKey.D8:
                 case ConsoleKey.D9:
                 {
-                    _game.Place(_model.Position, (int) key - 48);
+                    _game.Place(_model.Position, (int) key - (int) ConsoleKey.D0);
                     break;
                 }
             }

@@ -35,7 +35,6 @@ namespace Sudoku.Frontend.Controllers
                             _model.SimpleDisplay));
                         return;
                     }
-
                     break;
             }
 
