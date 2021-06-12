@@ -153,10 +153,8 @@ namespace Sudoku.Frontend.Views
                     }
                 }
             }
-
             
             return buffer;
-
         }
     }
 }
