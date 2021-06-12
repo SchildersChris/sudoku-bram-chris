@@ -31,8 +31,8 @@ namespace Sudoku.Frontend.Controllers
                 case ConsoleKey.S: // Start game (if file is set)
                     if (_model.SudokuPath != null)
                     {
-                        App.Instance.SetController(new SudokuController(_gameReader.Read(_model.SudokuPath),
-                            _model.SimpleDisplay));
+                        App.Instance.SetController(
+                            new SudokuController(_gameReader.Read(_model.SudokuPath), _model.SimpleDisplay));
                         return;
                     }
                     break;
@@ -41,7 +41,7 @@ namespace Sudoku.Frontend.Controllers
             _view.Update();
 
             // Todo: Delete
-            App.Instance.SetController(new SudokuController(_gameReader.Read("./Resources/puzzle.samurai"),
+            App.Instance.SetController(new SudokuController(_gameReader.Read("./Resources/puzzle.jigsaw"),
                 _model.SimpleDisplay));
         }
     }

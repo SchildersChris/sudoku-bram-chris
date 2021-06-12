@@ -51,16 +51,16 @@ namespace Sudoku.Frontend.Views
             int col = 1, row = 1;
             int bufferHeight, bufferWidth;
             
-            if (_model.State == EditorState.AuxiliaryNumbers)
-            {
-                (col, row) = _model.Numbers.Factorize();
-                bufferHeight = height * row;
-                bufferWidth = width * col;
-            }
-            else
+            if (_model.State == EditorState.DefinitiveNumbers)
             {
                 bufferHeight = height * 2 - 1;
                 bufferWidth = width * 2 - 1;
+            }
+            else
+            {
+                (col, row) = _model.Numbers.Factorize();
+                bufferHeight = height * row + height - 1;
+                bufferWidth = width * col + width - 1;
             }
             
             var buffer = new string[bufferHeight, bufferWidth];
@@ -80,8 +80,8 @@ namespace Sudoku.Frontend.Views
                     }
                     else
                     {
-                        y2 = y * row;
-                        x2 = x * col;
+                        y2 = y * row + y;
+                        x2 = x * col + x;
                         WriteAuxiliaryCell(c, buffer, x2, y2, col, row, _model.Position.X == x && _model.Position.Y == y);
                     }
 
