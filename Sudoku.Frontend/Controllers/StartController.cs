@@ -37,7 +37,9 @@ namespace Sudoku.Frontend.Controllers
                         try
                         {
                             App.Instance.SetController(
-                                new SudokuController(_gameReader.Read(_model.SudokuPath), _model.SimpleDisplay));
+                                new SudokuController(
+                                    _gameReader.Read(_model.SudokuPath), 
+                                    _model.SimpleDisplay));
                             return;
                         }
                         catch (Exception ex)
