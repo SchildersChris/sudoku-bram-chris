@@ -73,7 +73,6 @@ namespace Sudoku.Domain.Test
                 Assert.Null(c.Error);
             });           
             
-                        
             Assert.NotEqual(1, game.Cells.Get(new Point(1, 3)).Definite);
             Assert.NotEqual(3, game.Cells.Get(new Point(2, 3)).Definite);
             Assert.NotEqual(3, game.Cells.Get(new Point(3, 3)).Definite);
@@ -91,8 +90,7 @@ namespace Sudoku.Domain.Test
             var game = new GameReader().Read(path);
             var solver1 = new BoxLogicSolverVisitor();
             var solver2 = new BackTrackingSolverVisitor();
-            
-            
+
             // Act
             game.Accept(solver1);
             game.Accept(solver2);
