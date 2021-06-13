@@ -28,6 +28,11 @@ namespace Sudoku.Domain
 
         public void Place(Point point, int number)
         {
+            if (Numbers < number || number < 0)
+            {
+                return;
+            }
+            
             if (!Cells.Contains(point))
             {
                 throw new ArgumentException("Point must be within the board bounds", nameof(point));

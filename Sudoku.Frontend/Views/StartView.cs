@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.Text;
+using Pastel;
 using Sudoku.Frontend.Models;
 
 namespace Sudoku.Frontend.Views
@@ -24,11 +26,18 @@ namespace Sudoku.Frontend.Views
                 Console.Write("Please enter a sudoku file path: ");
                 _model.SudokuPath = Console.ReadLine();
             }
-
-            Console.WriteLine("\nSettings:");
+            
+            Console.Clear();
+            Console.WriteLine("Welcome to Sudoku.\n");
+            
+            Console.WriteLine("Settings:");
             Console.WriteLine($" - Display Mode: {(_model.SimpleDisplay ? "Simple" : "Advanced")}");
             Console.WriteLine($" - File Path: '{_model.SudokuPath ?? "None"}'");
-
+            if (_model.Error)
+            {
+                Console.WriteLine($"Error occured while loading the sudoku!".Pastel(Color.OrangeRed));
+            }
+            
             Console.WriteLine("\nOptions:");
             Console.WriteLine(" - To toggle the display mode press 'D'");
             Console.WriteLine(" - To change the file path mode press 'F'");

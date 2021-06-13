@@ -16,6 +16,8 @@ namespace Sudoku.Frontend.Controllers
             _model = new StartModel();
             _view = new StartView(_model);
             _gameReader = new GameReader();
+            
+            _view.Update();
         }
 
         public void Update(ConsoleKey key)
@@ -27,22 +29,27 @@ namespace Sudoku.Frontend.Controllers
                     break;
                 case ConsoleKey.F: // Change file path
                     _model.SudokuPath = null;
+                    _model.Error = false;
                     break;
                 case ConsoleKey.S: // Start game (if file is set)
                     if (_model.SudokuPath != null)
                     {
-                        App.Instance.SetController(
-                            new SudokuController(_gameReader.Read(_model.SudokuPath), _model.SimpleDisplay));
-                        return;
+                        try
+                        {
+                            App.Instance.SetController(
+                                new SudokuController(_gameReader.Read(_model.SudokuPath), _model.SimpleDisplay));
+                            return;
+                        }
+                        catch (Exception)
+                        {
+                            _model.Error = true;
+                        }
                     }
                     break;
+                default: return;
             }
 
             _view.Update();
-
-            // Todo: Delete
-            App.Instance.SetController(new SudokuController(_gameReader.Read("./Resources/puzzle.6x6"),
-                _model.SimpleDisplay));
         }
     }
 }
