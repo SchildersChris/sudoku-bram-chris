@@ -23,16 +23,23 @@ namespace Sudoku.Data
             var extension = new string(Path.GetExtension(path).Skip(1).ToArray());
             if (!Strategies.ContainsKey(extension))
             {
-                throw new ArgumentException($"There is no strategy registered for: '{extension}'", nameof(extension));
+                throw new ArgumentException($"Cannot read extension: '{extension}'");
             }
 
             var type = Strategies[extension];
             if (Activator.CreateInstance(type) is not ISudokuFactory factory)
             {
-                throw new InvalidCastException($"Failed to create instance of {type.Name}");
+                throw new InvalidCastException($"Something went wrong while creating sudoku generator");
             }
 
-            return factory.Create(File.ReadLines(path));
+            try
+            {
+                return factory.Create(File.ReadLines(path));
+            }
+            catch (Exception)
+            {
+                throw new Exception("Unable to create sudoku from file");
+            }
         }
     }
 }

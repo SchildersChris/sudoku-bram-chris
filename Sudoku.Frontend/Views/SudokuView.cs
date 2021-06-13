@@ -40,6 +40,10 @@ namespace Sudoku.Frontend.Views
 
             Console.WriteLine($"\nCurrent view mode: {_model.State.ToString()} ");
             Console.WriteLine($"\nShow errors: {_model.ShowErrors.ToString()} ");
+            if (_model.Error != null)
+            {
+                Console.WriteLine(_model.Error.Pastel(Color.OrangeRed));
+            }
         }
 
 

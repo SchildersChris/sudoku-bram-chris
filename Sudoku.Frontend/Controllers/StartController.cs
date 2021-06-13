@@ -29,7 +29,7 @@ namespace Sudoku.Frontend.Controllers
                     break;
                 case ConsoleKey.F: // Change file path
                     _model.SudokuPath = null;
-                    _model.Error = false;
+                    _model.Error = null;
                     break;
                 case ConsoleKey.S: // Start game (if file is set)
                     if (_model.SudokuPath != null)
@@ -40,9 +40,9 @@ namespace Sudoku.Frontend.Controllers
                                 new SudokuController(_gameReader.Read(_model.SudokuPath), _model.SimpleDisplay));
                             return;
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            _model.Error = true;
+                            _model.Error = ex.Message;
                         }
                     }
                     break;

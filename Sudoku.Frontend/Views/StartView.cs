@@ -33,9 +33,9 @@ namespace Sudoku.Frontend.Views
             Console.WriteLine("Settings:");
             Console.WriteLine($" - Display Mode: {(_model.SimpleDisplay ? "Simple" : "Advanced")}");
             Console.WriteLine($" - File Path: '{_model.SudokuPath ?? "None"}'");
-            if (_model.Error)
+            if (_model.Error != null)
             {
-                Console.WriteLine($"Error occured while loading the sudoku!".Pastel(Color.OrangeRed));
+                Console.WriteLine(_model.Error.Pastel(Color.OrangeRed));
             }
             
             Console.WriteLine("\nOptions:");

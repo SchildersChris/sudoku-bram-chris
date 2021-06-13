@@ -35,6 +35,8 @@ namespace Sudoku.Frontend.Controllers
 
         public void Update(ConsoleKey key)
         {
+            _model.Error = null;
+            
             switch (key)
             {
                 case ConsoleKey.Spacebar:
@@ -76,7 +78,14 @@ namespace Sudoku.Frontend.Controllers
                 case ConsoleKey.D8:
                 case ConsoleKey.D9:
                 {
-                    _game.Place(_model.Position, (int) key - (int) ConsoleKey.D0);
+                    try
+                    {
+                        _game.Place(_model.Position, (int) key - (int) ConsoleKey.D0);
+                    }
+                    catch (Exception ex)
+                    {
+                        _model.Error = ex.Message;
+                    }
                     break;
                 }
                 default: return;

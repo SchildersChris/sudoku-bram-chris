@@ -30,12 +30,12 @@ namespace Sudoku.Domain
         {
             if (Numbers < number || number < 0)
             {
-                return;
+                throw new ArgumentException($"The number must be between 1 and {Numbers}");
             }
             
             if (!Cells.Contains(point))
             {
-                throw new ArgumentException("Point must be within the board bounds", nameof(point));
+                throw new ArgumentException("Position must be within the board bounds", nameof(point));
             }
 
             _currentState.Place(point, number);
