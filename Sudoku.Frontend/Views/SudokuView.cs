@@ -49,8 +49,10 @@ namespace Sudoku.Frontend.Views
             var height = cells.GetHeight();
             var width = cells.GetWidth();
 
-            int col = 1, row = 1;
-            int bufferHeight, bufferWidth;
+            var col = 1;
+            var row = 1;
+            int bufferHeight;
+            int bufferWidth;
             
             if (_model.State == EditorState.DefinitiveNumbers)
             {
