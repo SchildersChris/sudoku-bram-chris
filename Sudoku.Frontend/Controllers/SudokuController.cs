@@ -18,18 +18,19 @@ namespace Sudoku.Frontend.Controllers
 
         public SudokuController(IGameElement game, bool simpleDisplay)
         {
-            if (simpleDisplay && game.State != EditorState.DefinitiveNumbers)
+            _model = new SudokuModel(game.Numbers, game.Cells, game.State);
+
+            if (simpleDisplay)
             {
-                game.ToggleState();
                 _view = new DefinitiveSudokuView(_model);
             }
             else
             {
+                game.ToggleState();
                 _view = new AuxiliarySudokuView(_model);
             }
-
-            _model = new SudokuModel(game.Numbers, game.Cells, game.State);
             
+
             _game = game;
             _solver = new BoxLogicSolverVisitor();
             _solver2 = new BackTrackingSolverVisitor();

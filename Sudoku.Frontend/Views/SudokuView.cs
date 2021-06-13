@@ -3,8 +3,6 @@ using System.Drawing;
 using System.Text;
 using Pastel;
 using Sudoku.Common.Extensions;
-using Sudoku.Domain.Composite.Interfaces;
-using Sudoku.Domain.Enums;
 using Sudoku.Frontend.Models;
 
 namespace Sudoku.Frontend.Views
