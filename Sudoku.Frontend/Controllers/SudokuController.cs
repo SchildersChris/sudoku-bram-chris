@@ -13,8 +13,7 @@ namespace Sudoku.Frontend.Controllers
         private SudokuView _view;
         private readonly SudokuModel _model;
         private readonly IGameElement _game;
-        private readonly ISolverVisitor _solver;
-        private readonly ISolverVisitor _solver2;
+        private readonly ISolverVisitor[] _solvers;
 
         public SudokuController(IGameElement game, bool simpleDisplay)
         {
@@ -31,9 +30,11 @@ namespace Sudoku.Frontend.Controllers
             }
             
             _game = game;
-            _solver = new BoxLogicSolverVisitor();
-            _solver2 = new BackTrackingSolverVisitor();
-            
+            _solvers = new ISolverVisitor[]
+            {
+                new BoxLogicSolverVisitor(),
+                new BackTrackingSolverVisitor()
+            };
             _view.Update();
         }
 
@@ -56,8 +57,10 @@ namespace Sudoku.Frontend.Controllers
                 }
                 case ConsoleKey.S: // Solve puzzle
                 {
-                    _game.Accept(_solver);
-                    _game.Accept(_solver2);
+                    foreach (var s in _solvers)
+                    {
+                        _game.Accept(s);
+                    }
                     break;
                 }
                 case ConsoleKey.C: // Show errors on screen

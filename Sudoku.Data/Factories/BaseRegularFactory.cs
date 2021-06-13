@@ -9,12 +9,12 @@ namespace Sudoku.Data.Factories
     public abstract class BaseRegularFactory : ISudokuFactory
     {
         private readonly GridBuilder _gridBuilder;
-        private int _subGridNumber;
+        private int _gridNumber;
 
         protected BaseRegularFactory()
         {
             _gridBuilder = new GridBuilder(0);
-            _subGridNumber = 0;
+            _gridNumber = 0;
         }
 
         protected abstract (int numbers, int length) Construct(IEnumerable<string> lines);
@@ -28,7 +28,7 @@ namespace Sudoku.Data.Factories
             var subGrids = new List<GridBuilder>();
             for (var i = 0; i < length; i++)
             {
-                subGrids.Add(sudoku.AddGrid(_subGridNumber++));
+                subGrids.Add(sudoku.AddGrid(_gridNumber++));
             }
 
             for (var y = 0; y < length; y++)
