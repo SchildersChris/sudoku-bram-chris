@@ -30,7 +30,6 @@ namespace Sudoku.Frontend.Controllers
                 _view = new AuxiliarySudokuView(_model);
             }
             
-
             _game = game;
             _solver = new BoxLogicSolverVisitor();
             _solver2 = new BackTrackingSolverVisitor();
@@ -44,7 +43,7 @@ namespace Sudoku.Frontend.Controllers
             
             switch (key)
             {
-                case ConsoleKey.Spacebar:
+                case ConsoleKey.Spacebar: // Toggle display mode
                 {
                     _game.ToggleState();
                     _model.State = _game.State;
@@ -55,17 +54,18 @@ namespace Sudoku.Frontend.Controllers
 
                     break;
                 }
-                case ConsoleKey.S:
+                case ConsoleKey.S: // Solve puzzle
                 {
                     _game.Accept(_solver);
                     _game.Accept(_solver2);
                     break;
                 }
-                case ConsoleKey.C:
+                case ConsoleKey.C: // Show errors on screen
                 {
                     _model.ShowErrors = !_model.ShowErrors;
                     break;
                 }
+                // Navigate sudoku board
                 case ConsoleKey.UpArrow:
                     _model.Move(new Size(0, -1));
                     break;
@@ -78,6 +78,7 @@ namespace Sudoku.Frontend.Controllers
                 case ConsoleKey.RightArrow:
                     _model.Move(new Size(1, 0));
                     break;
+                // Placing number
                 case ConsoleKey.D1:
                 case ConsoleKey.D2:
                 case ConsoleKey.D3:
