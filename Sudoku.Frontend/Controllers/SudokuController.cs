@@ -10,7 +10,7 @@ namespace Sudoku.Frontend.Controllers
 {
     public class SudokuController : IController
     {
-        private readonly SudokuView _view;
+        private SudokuView _view;
         private readonly SudokuModel _model;
         private readonly IGameElement _game;
         private readonly ISolverVisitor _solver;
@@ -21,10 +21,14 @@ namespace Sudoku.Frontend.Controllers
             if (simpleDisplay && game.State != EditorState.DefinitiveNumbers)
             {
                 game.ToggleState();
+                _view = new DefinitiveSudokuView(_model);
+            }
+            else
+            {
+                _view = new AuxiliarySudokuView(_model);
             }
 
             _model = new SudokuModel(game.Numbers, game.Cells, game.State);
-            _view = new SudokuView(_model);
             
             _game = game;
             _solver = new BoxLogicSolverVisitor();
@@ -43,6 +47,11 @@ namespace Sudoku.Frontend.Controllers
                 {
                     _game.ToggleState();
                     _model.State = _game.State;
+                    
+                    _view = _model.State == EditorState.DefinitiveNumbers ? 
+                        new DefinitiveSudokuView(_model) : 
+                        new AuxiliarySudokuView(_model);
+
                     break;
                 }
                 case ConsoleKey.S:

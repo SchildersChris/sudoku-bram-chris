@@ -26,15 +26,15 @@ namespace Sudoku.Data.Test
         }
 
         [Theory]
-        [InlineData("extension", "./Resources/puzzle.nonExisting")]
-        [InlineData("lines", "./Resources/faulty.samurai")]
-        public void Should_Throw_ArgumentException(string paramName, string path)
+        [InlineData("./Resources/puzzle.nonExisting")]
+        [InlineData("./Resources/faulty.nonExisting2")]
+        public void Should_Throw_ArgumentException(string path)
         {
             // Arrange 
             var gameReader = new GameReader();
             
             // Act & Assert
-            Assert.Throws<ArgumentException>(paramName, () =>
+            Assert.Throws<ArgumentException>(() =>
             {
                 gameReader.Read(path);
             });
@@ -47,10 +47,13 @@ namespace Sudoku.Data.Test
             var gameReader = new GameReader();
             
             // Act & Assert
-            Assert.Throws<FileNotFoundException>(() =>
+            var ex = Assert.Throws<Exception>(() =>
             {
+                
                 gameReader.Read("./nonExistingPath.4x4");
             });
+
+            Assert.IsType<FileNotFoundException>(ex.InnerException);
         }
     }
 }

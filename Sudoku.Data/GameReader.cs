@@ -36,9 +36,9 @@ namespace Sudoku.Data
             {
                 return factory.Create(File.ReadLines(path));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Unable to create sudoku from file");
+                throw new Exception("Unable to create sudoku from file", ex);
             }
         }
     }
