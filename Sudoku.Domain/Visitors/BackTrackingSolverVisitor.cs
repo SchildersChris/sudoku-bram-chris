@@ -8,17 +8,7 @@ namespace Sudoku.Domain.Visitors
     {
         public void Visit(GameElement game)
         {
-            // for (var y = 0; y < game.Cells.GetHeight(); y++)
-            // {
-            //     for (var x = 0; x < game.Cells.GetWidth(); x++)
-            //     {
-            //         var c = game.Cells.Get(x, y);
-            //         if (c is { Error: { } })
-            //         {
-            //             game.Grid.Place(new Point(x, y), 0, false);
-            //         }
-            //     }
-            // }
+            ClearErrors(game);
 
             Solve(game);
         }
@@ -38,8 +28,6 @@ namespace Sudoku.Domain.Visitors
                 {
                     continue;
                 }
-                
-                // Console.WriteLine($"Solving: {p.ToString()}, Number: {i}");
                 
                 game.Grid.Place(p, i, false);
                 if (Solve(game))
@@ -68,6 +56,24 @@ namespace Sudoku.Domain.Visitors
             }
             
             return null;
+        }
+        
+        private static void ClearErrors(GameElement game)
+        {
+            for (var y = 0; y < game.Cells.GetHeight(); y++)
+            {
+                for (var x = 0; x < game.Cells.GetWidth(); x++)
+                {
+                    var c = game.Cells.Get(x, y);
+                    if (c is not {Error: { }})
+                    {
+                        continue;
+                    }
+                    
+                    game.Grid.Place(new Point(x, y), 0, false);
+                    game.Grid.SetError(new Point(x, y), null);
+                }
+            }
         }
     }
 }
