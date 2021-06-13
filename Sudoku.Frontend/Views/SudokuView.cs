@@ -125,18 +125,18 @@ namespace Sudoku.Frontend.Views
             var val = cell.Definite != 0 ? cell.Definite.ToString() : ".";
             if (cell.Error == true && showErrors)
             {
-                val = val.Pastel(Color.White).PastelBg(Color.Red);
+                val = val.Pastel(Color.White).PastelBg(drawCursor ? Color.DarkRed : Color.Red);
             }
-
-            if (drawCursor)
+            else if (drawCursor)
             {
                 val = val.PastelBg(Color.DarkGray).Pastel(Color.Black);
+
             }
-            
+
             buffer.Set(xStart, yStart, val);
         }
         
-        private static void WriteAuxiliaryCell(ICell cell, string[,] buffer, int xStart, int yStart, int width, int height, bool drawCursor, bool showErrors)
+        private static void WriteAuxiliaryCell( ICell cell, string[,] buffer, int xStart, int yStart, int width, int height, bool drawCursor, bool showErrors)
         {
             for (var y = 0; y < height; y++)
             {
@@ -153,7 +153,7 @@ namespace Sudoku.Frontend.Views
                     {
                         val = idx == cell.Definite - 1 ? cell.Definite.ToString() : " ";
                         val = cell.Error == true && showErrors ? 
-                            val.Pastel(drawCursor ? Color.Black : Color.White).PastelBg(drawCursor ? Color.DarkRed : Color.Red) : 
+                            val.Pastel(Color.White).PastelBg(drawCursor ? Color.DarkRed : Color.Red) : 
                             val.Pastel(Color.Black).PastelBg(drawCursor ? Color.LightGray : Color.LightYellow);
                     }
                     else

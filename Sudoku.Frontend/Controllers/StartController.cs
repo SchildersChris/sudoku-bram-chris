@@ -41,7 +41,7 @@ namespace Sudoku.Frontend.Controllers
             _view.Update();
 
             // Todo: Delete
-            App.Instance.SetController(new SudokuController(_gameReader.Read("./Resources/puzzle.samurai"),
+            App.Instance.SetController(new SudokuController(_gameReader.Read("./Resources/puzzle.6x6"),
                 _model.SimpleDisplay));
         }
     }
