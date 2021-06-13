@@ -34,7 +34,7 @@ namespace Sudoku.Domain.Visitors
                 }
             }
 
-            var found = false;
+            bool found;
             do
             {
                 found = false;
