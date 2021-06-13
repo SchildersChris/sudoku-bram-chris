@@ -70,23 +70,23 @@ namespace Sudoku.Frontend.Views
             {
                 for (var x = 0; x < width; x++)
                 {
-                    var c = cells.Get(x, y);
+                    var cell = cells.Get(x, y);
                     int y2, x2;
 
                     if (_model.State == EditorState.DefinitiveNumbers)
                     {
                         y2 = y * 2;
                         x2 = x * 2;
-                        WriteDefiniteCell(c, buffer, x2, y2, _model.Position.X == x && _model.Position.Y == y, _model.ShowErrors);
+                        WriteDefiniteCell(cell, buffer, x2, y2, _model.Position.X == x && _model.Position.Y == y, _model.ShowErrors);
                     }
                     else
                     {
                         y2 = y * row + y;
                         x2 = x * col + x;
-                        WriteAuxiliaryCell(c, buffer, x2, y2, col, row, _model.Position.X == x && _model.Position.Y == y, _model.ShowErrors);
+                        WriteAuxiliaryCell(cell, buffer, x2, y2, col, row, _model.Position.X == x && _model.Position.Y == y, _model.ShowErrors);
                     }
 
-                    if (c == null)
+                    if (cell == null)
                     {
                         continue;
                     }
@@ -94,7 +94,7 @@ namespace Sudoku.Frontend.Views
                     // Check for horizontal border
                     if (cells.Contains(x + 1, y) && 
                         cells.Get(x + 1, y) != null && 
-                        c.GridNumber != cells.Get(x + 1, y).GridNumber)
+                        cell.GridNumber != cells.Get(x + 1, y).GridNumber)
                     {
                         buffer.Set(x2 + col, y2, "|".Pastel(Color.OrangeRed));
                     }
@@ -102,7 +102,7 @@ namespace Sudoku.Frontend.Views
                     // Check for vertical border
                     if (cells.Contains(x, y + 1) && 
                         cells.Get(x, y + 1) != null &&
-                        c.GridNumber != cells.Get(x, y + 1).GridNumber)
+                        cell.GridNumber != cells.Get(x, y + 1).GridNumber)
                     {
                         buffer.Set(x2, y2 + row, "-".Pastel(Color.OrangeRed));
                     }
@@ -134,13 +134,13 @@ namespace Sudoku.Frontend.Views
             buffer.Set(xStart, yStart, val);
         }
         
-        private static void WriteAuxiliaryCell(ICell cell, string[,] buffer, int xStart, int yStart, int w, int h, bool drawCursor, bool showErrors)
+        private static void WriteAuxiliaryCell(ICell cell, string[,] buffer, int xStart, int yStart, int width, int height, bool drawCursor, bool showErrors)
         {
-            for (var y = 0; y < h; y++)
+            for (var y = 0; y < height; y++)
             {
-                for (var x = 0; x < w; x++)
+                for (var x = 0; x < width; x++)
                 {
-                    var idx = y * w + x;
+                    var idx = y * width + x;
                     string val;
 
                     if (cell == null)
