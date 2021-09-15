@@ -1,2 +1,2 @@
 # sudoku-bram-chris
-Design patterns 1
+Avans Hogeschool Design patterns 1 assignment
